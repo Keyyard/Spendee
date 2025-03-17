@@ -2,3 +2,6 @@ fastapi[all]
 uvicorn
 python-dotenv
 httpx
+python-jose[cryptography]
+prisma
+passlib[bcrypt]
