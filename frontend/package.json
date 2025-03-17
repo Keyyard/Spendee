@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@lynx-js/react": "^0.105.1",
-    "@supabase/supabase-js": "^2.49.1"
+    "@tanstack/react-query": "^5.68.0",
+    "react-router": "^6.30.0"
   },
   "devDependencies": {
     "@lynx-js/qrcode-rsbuild-plugin": "^0.3.4",
