@@ -1,8 +1,12 @@
-from fastapi import APIRouter, Depends
-from app.utils.auth import get_current_user
+from fastapi import APIRouter, Depends, HTTPException
+from app.utils.auth import oauth2_scheme, decode_token
 
 router = APIRouter()
 
-@router.get("/me")
-async def get_me(user_id: str = Depends(get_current_user)):
-    return {"message": "Protected route accessed!", "user_id": user_id}
+@router.get("/protected")
+async def protected_route(token: str = Depends(oauth2_scheme)):
+    payload = decode_token(token)
+    if not payload:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    return {"message": "You have access!"}

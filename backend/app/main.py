@@ -10,7 +10,7 @@ add_cors_middleware(app)
 
 # Routers
 app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
-app.include_router(protected_router, prefix="/protected", tags=["Protected"])
+app.include_router(protected_router, tags=["Protected"])
 
 @app.get("/")
 def root():
