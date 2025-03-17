@@ -17,6 +17,7 @@ export function Home() {
       {isLoading && <text>Loading...</text>}
       {error && <text>Error fetching data</text>}
       {data && <text>{data.message}</text>}
+      <text>{import.meta.env.PUBLIC_TEST_VARIABLE}</text>
     </Container>
   );
 }
