@@ -1,7 +1,7 @@
 fastapi[all]
 uvicorn
-python-dotenv
-httpx
-python-jose[cryptography]
+redis
 prisma
-passlib[bcrypt]
+python-dotenv
+slowapi
+clerk-backend-api
