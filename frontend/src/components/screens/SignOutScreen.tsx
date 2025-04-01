@@ -3,7 +3,8 @@ import { Link } from "expo-router";
 
 export default function SignOutScreen() {
   return (
-    <View className="w-80 p-6 bg-white rounded-lg shadow-md items-center">
+    <View className="flex-1 items-center justify-center bg-gray-100 px-6">
+      
       <Text className="text-2xl font-bold text-gray-800 mb-4">
         Welcome to Spendee
       </Text>

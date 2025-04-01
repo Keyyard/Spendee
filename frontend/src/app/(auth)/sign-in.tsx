@@ -1,8 +1,9 @@
-import { useSignIn } from "@clerk/clerk-expo";
-import { Link, useRouter, Stack } from "expo-router";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import React from "react";
 import BackHeader from "@/src/components/BackHeader";
+import { useSignIn } from "@clerk/clerk-expo";
+import { Link, useRouter } from "expo-router";
+import React from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function Page() {
 
       if (signInAttempt.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });
+
         router.replace("/");
       } else {
         console.error(JSON.stringify(signInAttempt, null, 2));
@@ -31,6 +33,7 @@ export default function Page() {
     }
   };
 
+
   return (
     <View className="flex-1 items-center justify-center bg-gray-100 px-6">
         <BackHeader headerTitle="Sign In" />
@@ -39,11 +42,10 @@ export default function Page() {
           Sign in
         </Text>
 
-        {/* Email Input */}
         <TextInput
           autoCapitalize="none"
           value={emailAddress}
-          placeholder="Enter email"
+          placeholder="Enter email or username"
           onChangeText={setEmailAddress}
           className="w-full p-4 border border-gray-300 rounded-lg mb-4 text-gray-700"
         />

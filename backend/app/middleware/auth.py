@@ -1,22 +1,26 @@
-import httpx
-from fastapi import Request, HTTPException
-from clerk_backend_api import Clerk
-from clerk_backend_api.jwks_helpers import AuthenticateRequestOptions
-from app.config import clerk 
+import logging
+from fastapi import HTTPException, Security, Depends
+from fastapi.security import HTTPBearer
+from app.dependencies import getPrisma
+from prisma import Prisma
+from ..services.auth import signIn
+security = HTTPBearer()
 
-async def authRequest(request: Request):
+async def authRequest(user_id: str = Security(security), db: Prisma = Depends(getPrisma)):
     try:
-        # Use Clerk's authentication helper
-        request_state = clerk.authenticate_request(
-            request, 
-            AuthenticateRequestOptions(
-                authorized_parties=["*"]  
-            )
-        )
-        
-        if not request_state.is_signed_in:
-            raise HTTPException(status_code=401, detail="Unauthorized")
+        user_id = user_id.credentials
+        logging.info(f"Received userId: {user_id}")
 
-        return request_state
+        if not user_id:
+            raise HTTPException(status_code=401, detail="Missing userId")
+
+        user = await db.user.find_first(where={"id": user_id})
+        if not user:
+            signIn({"id": user_id}, db)
+
+        logging.info(f"Authenticated userId: {user_id}")
+        return user_id
+
     except Exception as e:
-        raise HTTPException(status_code=401, detail="Invalid authentication token")
+        logging.error(f"Authentication error: {e}")
+        raise HTTPException(status_code=401, detail="Authentication failed")

@@ -1,8 +1,8 @@
-from prisma import Prisma
+from ..dependencies import db
 from app.schemas.transactions import TransactionSchema
 from fastapi import HTTPException
 
-async def createTransaction(data: TransactionSchema, db: Prisma):
+async def createTransaction(data: TransactionSchema, db):
     # Auto-categorize if category is missing
     if not data.category:
         data.category = "Uncategorized"  # Default category
@@ -17,17 +17,17 @@ async def createTransaction(data: TransactionSchema, db: Prisma):
     })
     return transaction
 
-async def getAllTransactions(user_id: str, db: Prisma):
+async def getAllTransactions(user_id: str, db):
     transactions = await db.transaction.find_many(where={"userId": user_id})
     return transactions
 
-async def getTransaction(transaction_id: str, db: Prisma):
+async def getTransaction(transaction_id: str, db):
     transaction = await db.transaction.find_unique(where={"id": transaction_id})
     if not transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
     return transaction
 
-async def updateTransaction(transaction_id: str, data: dict, db: Prisma):
+async def updateTransaction(transaction_id: str, data: dict, db):
     transaction = await db.transaction.update(
         where={"id": transaction_id},
         data=data
@@ -36,7 +36,7 @@ async def updateTransaction(transaction_id: str, data: dict, db: Prisma):
         raise HTTPException(status_code=404, detail="Transaction not found")
     return transaction
 
-async def deleteTransaction(transaction_id: str, db: Prisma):
+async def deleteTransaction(transaction_id: str, db):
     transaction = await db.transaction.delete(where={"id": transaction_id})
     if not transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")

@@ -1,8 +1,8 @@
+import BackHeader from "@/src/components/BackHeader";
+import { useSignUp } from "@clerk/clerk-expo";
+import { Link, useRouter } from "expo-router";
 import * as React from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useSignUp } from "@clerk/clerk-expo";
-import { Link, useRouter, Stack } from "expo-router";
-import BackHeader from "@/src/components/BackHeader";
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
