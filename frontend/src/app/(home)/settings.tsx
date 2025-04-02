@@ -7,9 +7,13 @@ export default function Page() {
   const { user } = useUser();
 
   return (
-    <View className="flex-1 p-4 justify-start items-start bg-gray-100">
-      <SettingsScreen user={user} />
-      <APIDebugScreen user={user} />
+    <View className="flex-1 bg-gray-100 p-4">
+      <View className="justify-start items-start">
+        <SettingsScreen user={user} />
+      </View>
+      <View className="mt-4">
+        <APIDebugScreen />
+      </View>
     </View>
   );
 }

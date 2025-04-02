@@ -3,18 +3,33 @@ from app.schemas.transactions import TransactionSchema
 from fastapi import HTTPException
 
 async def createTransaction(data: TransactionSchema, db):
+    if not data.userId:
+        raise HTTPException(status_code=400, detail="Missing required fields: userId")
+
     # Auto-categorize if category is missing
     if not data.category:
         data.category = "Uncategorized"  # Default category
 
-    transaction = await db.transaction.create(data={
-        "userId": data.userId,
-        "amount": data.amount,
-        "type": data.type,
-        "category": data.category,
-        "description": data.description,
-        "date": data.date
-    })
+    # Find or create the category
+    category = await db.category.find_first(where={"name": data.category, "userId": data.userId})
+    if not category:
+        category = await db.category.create(data={"name": data.category, "userId": data.userId})
+
+    # Create the transaction and link it to the category
+    transaction = await db.transaction.create(
+        data={
+            "userId": data.userId,
+            "amount": data.amount,
+            "type": data.type,
+            "category": category.name,  # Use the category name
+            "description": data.description,
+            "date": data.date or datetime.utcnow(),  # Use current date if not provided
+        },
+        include={
+            "user": True,  # Include the full User object
+            "Category": True,  # Include the related Category objects
+        },
+    )
     return transaction
 
 async def getAllTransactions(user_id: str, db):

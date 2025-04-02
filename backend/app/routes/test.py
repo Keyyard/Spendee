@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, Security
-from prisma import Prisma
 from app.middleware.cors import addCorsMiddleware
-from app.middleware.rateLimiter import addRateLimiterMiddleware, limiter
+from app.middleware.rateLimiter import limiter, Limiter
 from app.middleware.auth import authRequest
 router = APIRouter()
 
 @router.get("/limited")
+@limiter.limit("5/minute")
 def limitedRoute(request: Request):  
     return {"message": "This is a limited route"}
 

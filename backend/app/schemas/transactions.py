@@ -6,5 +6,6 @@ class TransactionSchema(BaseModel):
     userId: str
     amount: float
     type: str 
-    category: str
+    categoryIdx: str
     description: Optional[str] = None
+    date: Optional[datetime] = datetime.utcnow()
