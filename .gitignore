@@ -10,4 +10,3 @@ frontend/dist/
 node_modules/
 lynx/
 frontend.dump/
-.env

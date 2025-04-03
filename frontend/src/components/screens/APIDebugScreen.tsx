@@ -227,7 +227,7 @@ export default function DebugPage() {
   return (
     <ScrollView>
       <TouchableOpacity
-        className="mt-4 px-6 py-2 bg-purple-500 rounded-lg w-[100%]"
+        className="mt-4 px-6 py-2 bg-secondary rounded-lg w-[100%]"
         onPress={handleProtectedRoute}
       >
         <Text className="text-white font-medium text-center">
@@ -254,7 +254,7 @@ export default function DebugPage() {
       </TouchableOpacity>
 
       <TouchableOpacity
-        className="mt-4 px-6 py-2 bg-purple-500 rounded-lg w-[100%]"
+        className="mt-4 px-6 py-2 bg-secondary rounded-lg w-[100%]"
         onPress={handleCreateCategory}
       >
         <Text className="text-white font-medium text-center">

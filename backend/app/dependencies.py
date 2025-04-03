@@ -1,10 +1,16 @@
 from prisma import Prisma
+from fastapi import Depends
 
+# Singleton Prisma client instance
 db = Prisma()
 
 async def getPrisma():
-    await db.connect()
+    if not db.is_connected():
+        await db.connect()
     try:
         yield db
+    except Exception as e:
+        raise e
     finally:
-        await db.disconnect()
+        # Do not disconnect here to avoid repeated connection issues
+        pass

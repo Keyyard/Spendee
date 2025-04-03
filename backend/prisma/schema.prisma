@@ -10,10 +10,11 @@ datasource db {
 model Transaction {
   id          String    @id @default(uuid())
   userId      String
+  user        User      @relation(fields: [userId], references: [id])
   amount      Float
   type        String
   categoryId  String
-  category    String
+  category    Category  @relation(fields: [categoryId], references: [id])
   description String?
   date        DateTime  @default(now())
   createdAt   DateTime? @default(now())
@@ -21,12 +22,16 @@ model Transaction {
 }
 
 model User {
-  id        String   @id @unique
-  createdAt DateTime @default(now())
+  id          String       @id @unique
+  createdAt   DateTime     @default(now())
+  categories  Category[]
+  transactions Transaction[]
 }
 
 model Category {
-  id     String @id @default(uuid())
-  userId String
-  name   String @unique
+  id          String       @id @default(uuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id])
+  name        String       @unique
+  transactions Transaction[]
 }

@@ -1,6 +1,4 @@
-const API = process.env.EXPO_PUBLIC_API_URL;
-
-const testUrl = `${API}/test`;
+import { testUrl, categoriesUrl, transactionsUrl } from "./config";
 
 export async function fetchBackendData(userId: string) {
     console.log(`Token being sent: Bearer ${userId}`); // Log the token
@@ -61,9 +59,6 @@ export async function fetchPublicRoute() {
         throw error;
     }
 }
-
-
-const categoriesUrl = `${API}/categories`;
 
 export async function createCategory(userId: string, data: object) {
   try {
@@ -173,8 +168,6 @@ export async function deleteCategory(userId: string, categoryId: string) {
     throw error;
   }
 }
-
-const transactionsUrl = `${API}/transactions`;
 
 export async function createTransaction(userId: string, data: object) {
     try {
