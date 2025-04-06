@@ -11,7 +11,7 @@ interface TransactionItemProps {
 const TransactionItem: React.FC<TransactionItemProps> = ({ transaction, onSave }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const typeBackgroundColor = transaction.type.toLowerCase() === "income" ? "transaction-income" : "transaction-expense";
+  const typeBackgroundColor = transaction.type.toLowerCase() === "income" ? "bg-green-500" : "bg-red-500";
   const formattedType = transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1);
   const formattedDate = new Date(transaction.date).toLocaleString("en-US", {
     month: "short",

@@ -53,7 +53,7 @@ export default function CategoryManagement({ user }: { user: any }) {
   const handleDeleteCategory = async (categoryId) => {
     try {
       await deleteCategory(user.id, categoryId);
-      fetchCategories();
+      fetchCategories();  
     } catch (error) {
       console.error("Failed to delete category:", error);
     }

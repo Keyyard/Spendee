@@ -20,39 +20,35 @@ export default function AddTransactionModal({ visible, onClose }: AddTransaction
 };
 
   return (
-    <Modal transparent visible={visible} animationType="fade">
+    <Modal transparent visible={visible}>
       <TouchableOpacity
         activeOpacity={1}
         onPress={onClose}
-        className="flex-1 justify-end bg-black/50"
+        className="flex-1 justify-end bg-black/20"
       >
 
-        {/* Modal Content */}
         <View className="w-full max-w-md mx-auto p-6 rounded-2xl mb-[10vh]">
 
-          {/* Expense Button */}
-          <View className="mb-3 flex-row justify-between">
+          <View className="flex-row justify-between">
             <TouchableOpacity
-              className="flex-row items-center justify-between expense p-4 px-12 rounded-lg"
+              className="flex-row items-center justify-between expense p-4 px-12 rounded-lg bg-red-500"
               onPress={() => handleSelectType("EXPENSE")}
             >
-              <Text className="text-red-600 font-semibold text-lg">Expense</Text>
+              <Text className=" font-semibold text-lg text-white">Expense</Text>
             </TouchableOpacity>
 
-            {/* Income Button */}
             <TouchableOpacity
-              className="flex-row items-center justify-between income p-4 px-12 rounded-lg"
+              className="flex-row items-center justify-between income p-4 px-12 rounded-lg bg-green-500"
               onPress={() => handleSelectType("INCOME")}
             >
-              <Text className="text-green-600 font-semibold text-lg">Income</Text>
+              <Text className=" font-semibold text-lg text-white">Income</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* Floating Close Button */}
         <TouchableOpacity
           onPress={onClose}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 p-4 rounded-full shadow-2xl bg-primary"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 p-4 rounded-full shadow-2xl bg-blue-500"
         >
           <X size={28} color="white" />
         </TouchableOpacity>

@@ -23,14 +23,14 @@ export default function BudgetScreen({ user }: { user: any | null | undefined })
       setLoading(false);
     }
   };
-
-  if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
-  }
-
   return (
-    <TouchableOpacity className="w-full py-4 bg-primary rounded-lg shadow-lg mt-2 text-left items-start px-4">
-      <Text className="text-white font-extrabold text-3xl text-center">${budget}</Text>
+    <TouchableOpacity className="w-full py-4 bg-blue-500 rounded-lg shadow-lg mt-2 text-left items-start px-4">
+      {loading ? (
+        <Text className="text-white font-extrabold text-3xl text-center">$ <ActivityIndicator size="small" color="#fff" />
+        </Text>
+      ) : (
+        <Text className="text-white font-extrabold text-3xl text-center">${budget}</Text>
+      )}
       <Text className="text-white font-medium text-center">Your balance is calculated from income & expenses</Text>
     </TouchableOpacity>
   );
