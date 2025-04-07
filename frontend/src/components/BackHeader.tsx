@@ -1,20 +1,22 @@
+import React from "react";
 import { ArrowLeft } from "lucide-react-native";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Link, useRouter, Stack } from "expo-router";
-export default function BackHeader({ headerTitle = "" }) {
-    const router = useRouter();
-    return (
-        <Stack.Screen
-            options={{
-                headerTitle: headerTitle,
-                headerTitleAlign: "center",
-                headerShadowVisible: false, 
-                headerLeft: () => (
-                    <TouchableOpacity onPress={() => router.back()} className="ml-4">
-                        <ArrowLeft size={24} color="black" />
-                    </TouchableOpacity>
-                ),
-            }}
-        />
-    );
+import { TouchableOpacity } from "react-native";
+import { useRouter, Stack } from "expo-router";
+import BackButton from "./buttons/BackButton";
+
+interface BackHeaderProps {
+  headerTitle?: string;
+}
+
+export default function BackHeader({ headerTitle = "" }: BackHeaderProps) {
+  return (
+    <Stack.Screen
+      options={{
+        headerTitle: headerTitle,
+        headerTitleAlign: "center",
+        headerShadowVisible: false,
+        headerLeft: () => <BackButton />, // Reusable BackButton component
+      }}
+    />
+  );
 }

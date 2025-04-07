@@ -1,8 +1,9 @@
-import { View, TouchableOpacity } from "react-native";
-import { Home, History, Plus, ChartLine, Settings } from "lucide-react-native";
-import { useRouter, usePathname } from "expo-router";
 import React, { useState } from "react";
+import { View } from "react-native";
+import { useRouter, usePathname } from "expo-router";
 import AddTransactionModal from "./AddTransactionModal";
+import NavigationButton from "./buttons/NavigationButton";
+import { Home, History, Plus, ChartLine, Settings } from "lucide-react-native";
 
 export default function NavigationBar() {
   const router = useRouter();
@@ -16,28 +17,31 @@ export default function NavigationBar() {
   return (
     <>
       <View className="absolute bottom-0 left-0 right-0 flex-row justify-between items-center bg-gray-100 rounded-3xl shadow-lg p-4 mx-4 mb-4">
-        <TouchableOpacity onPress={() => handleNavigation("/(home)")}>
-          <Home size={24} color={pathname === "/" ? "#3d82f6" : "#9DA3B7"} />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => handleNavigation("/(home)/logs")}>
-          <History size={24} color={pathname === "/logs" ? "#3d82f6" : "#9DA3B7"} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
+        <NavigationButton
+          onPress={() => handleNavigation("/(home)")}
+          icon={Home}
+          isActive={pathname === "/"}
+        />
+        <NavigationButton
+          onPress={() => handleNavigation("/(home)/logs")}
+          icon={History}
+          isActive={pathname === "/logs"}
+        />
+        <NavigationButton
           onPress={() => setModalVisible(true)}
-          className="bg-blue-500 rounded-full p-2 shadow-2xl"
-        >
-          <Plus size={28} color="white" />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => handleNavigation("/(home)/chart")}>
-          <ChartLine size={24} color={pathname === "/chart" ? "#3d82f6" : "#9DA3B7"} />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => handleNavigation("/(home)/settings")}>
-          <Settings size={24} color={pathname === "/settings" ? "#3d82f6" : "#9DA3B7"} />
-        </TouchableOpacity>
+          icon={Plus}
+          isSpecial
+        />
+        <NavigationButton
+          onPress={() => handleNavigation("/(home)/chart")}
+          icon={ChartLine}
+          isActive={pathname === "/chart"}
+        />
+        <NavigationButton
+          onPress={() => handleNavigation("/(home)/settings")}
+          icon={Settings}
+          isActive={pathname === "/settings"}
+        />
       </View>
 
       <AddTransactionModal visible={isModalVisible} onClose={() => setModalVisible(false)} />

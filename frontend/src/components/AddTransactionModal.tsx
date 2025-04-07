@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { X } from "lucide-react-native";
 import { useRouter } from "expo-router";
+import TransactionTypeButton from "./buttons/TransactionTypeButton";
 
 interface AddTransactionModalProps {
   visible: boolean;
@@ -12,12 +13,12 @@ export default function AddTransactionModal({ visible, onClose }: AddTransaction
   const router = useRouter();
 
   const handleSelectType = (type: "EXPENSE" | "INCOME") => {
-    onClose(); 
+    onClose();
     router.push({
-        pathname: "/addTransaction",
-        params: { type },
-    })
-};
+      pathname: "/addTransaction",
+      params: { type },
+    });
+  };
 
   return (
     <Modal transparent visible={visible}>
@@ -26,23 +27,20 @@ export default function AddTransactionModal({ visible, onClose }: AddTransaction
         onPress={onClose}
         className="flex-1 justify-end bg-black/20"
       >
-
         <View className="w-full max-w-md mx-auto p-6 rounded-2xl mb-[10vh]">
-
           <View className="flex-row justify-between">
-            <TouchableOpacity
-              className="flex-row items-center justify-between expense p-4 px-12 rounded-lg bg-red-500"
-              onPress={() => handleSelectType("EXPENSE")}
-            >
-              <Text className=" font-semibold text-lg text-white">Expense</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              className="flex-row items-center justify-between income p-4 px-12 rounded-lg bg-green-500"
-              onPress={() => handleSelectType("INCOME")}
-            >
-              <Text className=" font-semibold text-lg text-white">Income</Text>
-            </TouchableOpacity>
+            <TransactionTypeButton
+              type="EXPENSE"
+              label="Expense"
+              onPress={handleSelectType}
+              className="bg-red-500"
+            />
+            <TransactionTypeButton
+              type="INCOME"
+              label="Income"
+              onPress={handleSelectType}
+              className="bg-green-500"
+            />
           </View>
         </View>
 
@@ -52,7 +50,6 @@ export default function AddTransactionModal({ visible, onClose }: AddTransaction
         >
           <X size={28} color="white" />
         </TouchableOpacity>
-
       </TouchableOpacity>
     </Modal>
   );

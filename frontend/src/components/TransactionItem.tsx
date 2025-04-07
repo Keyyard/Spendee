@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Transaction } from "@/src/types/Transaction";
-import TransactionModal from "./TransactionModal";
+// Import commented out temporarily to fix rendering conflicts
+// import TransactionModal from "./TransactionModal";
 
 interface TransactionItemProps {
   transaction: Transaction;
-  onSave: () => void;
+  onSave?: () => void;
 }
 
-const TransactionItem: React.FC<TransactionItemProps> = ({ transaction, onSave }) => {
+const TransactionItem: React.FC<TransactionItemProps> = ({ 
+  transaction, 
+  onSave = () => {} 
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const typeBackgroundColor = transaction.type.toLowerCase() === "income" ? "bg-green-500" : "bg-red-500";
+  const typeBackgroundColor = transaction.type.toLowerCase() === "income" ? "transaction-income" : "transaction-expense";
   const formattedType = transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1);
   const formattedDate = new Date(transaction.date).toLocaleString("en-US", {
     month: "short",
@@ -38,6 +42,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction, onSave }
         </View>
       </TouchableOpacity>
 
+      {/* TransactionModal temporarily commented out to fix rendering conflicts
       {modalVisible && (
         <TransactionModal
           transaction={transaction}
@@ -46,6 +51,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction, onSave }
           onSave={onSave}
         />
       )}
+      */}
     </>
   );
 };
