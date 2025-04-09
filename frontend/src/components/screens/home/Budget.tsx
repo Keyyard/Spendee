@@ -4,7 +4,9 @@ import { useUser } from "@clerk/clerk-expo";
 import { getBudget } from "@/src/services/transactionService";
 import { useCurrency } from "@/src/context/currencyContext";
 import { formatBudget } from "@/src/utils/format";
-export default function Budget({ user }: { user: any | null | undefined }) {
+import type { User } from "@/src/types/User";
+
+export default function Budget({ user }: { user: User | null | undefined }) {
   const { currency, symbol, isPrefix } = useCurrency();
 
   const [budget, setBudget] = useState<number | null>(null);

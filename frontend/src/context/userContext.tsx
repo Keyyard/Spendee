@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/clerk-expo";
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState, createContext, useContext, useMemo } from "react";
 import type { User } from "../types/User";
 
 const UserContext = createContext<User | null>(null);
@@ -28,5 +28,8 @@ export const useUserContext = () => {
     if (!context) {
         throw new Error("useUserContext must be used within a UserProvider");
     }
-    return context;
+
+    const memoizedContext = useMemo(() => context, [context]);
+
+    return memoizedContext;
 };

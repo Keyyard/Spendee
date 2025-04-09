@@ -289,7 +289,6 @@
 //         <Picker
 //           selectedValue={selectedCategory}
 //           onValueChange={(itemValue) => setSelectedCategory(itemValue)}
-//           style={{ height: 50, width: "100%" }}
 //         >
 //           {categories.map((category) => (
 //             <Picker.Item

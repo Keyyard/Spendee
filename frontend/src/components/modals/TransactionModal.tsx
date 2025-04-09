@@ -128,8 +128,8 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             <Picker
               selectedValue={selectedCategory}
               onValueChange={(itemValue) => setSelectedCategory(itemValue)}
-              style={{ height: 50, width: "100%" }}
-            >
+              className="w-full h-[50px]"
+>
               {categories.map((category) => (
                 <Picker.Item
                   key={category.id}

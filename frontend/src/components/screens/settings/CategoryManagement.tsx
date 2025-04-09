@@ -1,86 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Alert } from "react-native";
-import {
-  getAllCategories,
-  createCategory,
-  updateCategory,
-  deleteCategory,
-} from "@/src/services/categoryService";
+import React, { useState } from "react";
+import { View, Text } from "react-native";
+import { useCategories } from "@/src/hooks/useCategories";
 import type { Category } from "@/src/types/Category";
+import type { User } from "@/src/types/User";
 import CategoryList from "./CategoryList";
 import CategoryForm from "./CategoryForm";
 
-export default function CategoryManagement({ user }: { user: any }) {
-  const [categories, setCategories] = useState([] as Category[]);
+export default function CategoryManagement({ user }: { user: User }) {
+  const {
+    categories,
+    loading,
+    error,
+    fetchCategories,
+    createCategoryHandler,
+    updateCategoryHandler,
+    deleteCategoryHandler,
+  } = useCategories(user.id);
+
   const [newCategoryName, setNewCategoryName] = useState("");
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [editingName, setEditingName] = useState("");
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    if (!user) return;
-    try {
-      const result = await getAllCategories(user.id);
-      setCategories(result);
-    } catch (error) {
-      console.error("Failed to fetch categories:", error);
-    }
-  };
-
   const handleCreateCategory = async () => {
-    if (!newCategoryName.trim()) return;
-    try {
-      await createCategory(user.id, { name: newCategoryName });
-      setNewCategoryName("");
-      fetchCategories();
-    } catch (error) {
-      console.error("Failed to create category:", error);
-    }
+    await createCategoryHandler(newCategoryName);
+    setNewCategoryName("");
   };
 
   const handleUpdateCategory = async () => {
-    if (!editingCategory || !editingName.trim()) return;
-    try {
-      await updateCategory(user.id, editingCategory.id, { name: editingName });
+    if (editingCategory) {
+      await updateCategoryHandler(editingCategory.id, editingName);
       setEditingCategory(null);
       setEditingName("");
-      fetchCategories();
-    } catch (error) {
-      console.error("Failed to update category:", error);
     }
   };
 
   const handleDeleteCategory = async (categoryId: string) => {
-    Alert.alert(
-      "Confirm Deletion",
-      "Are you sure you want to delete this category?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deleteCategory(user.id, categoryId);
-              fetchCategories();
-            } catch (error) {
-              console.error("Failed to delete category:", error);
-            }
-          },
-        },
-      ]
-    );
+    await deleteCategoryHandler(categoryId);
   };
 
   return (
     <View className="bg-gray-100 rounded-lg">
-      <Text className="text-xl font-bold mb-4">Manage Categories</Text>
+      {loading && <Text>Loading...</Text>}
+      {error && <Text>{error}</Text>}
       <CategoryForm
         newCategoryName={newCategoryName}
         setNewCategoryName={setNewCategoryName}

@@ -105,7 +105,7 @@ export default function AddTransaction() {
         <Picker
           selectedValue={selectedCategory}
           onValueChange={(itemValue) => setSelectedCategory(itemValue)}
-          style={{ height: 50, width: "100%" }}
+          className="width-full h-[50px]"
         >
           {categories.map((category) => (
             <Picker.Item

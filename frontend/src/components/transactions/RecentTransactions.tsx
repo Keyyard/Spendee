@@ -5,8 +5,9 @@ import { useUser } from "@clerk/clerk-expo";
 import TransactionItem from "./TransactionItem";
 import { Transaction } from "@/src/types/Transaction";
 import { renderTransaction } from "./RenderTransaction";
+import type { User } from "@/src/types/User";
 
-export default function RecentTransactions({ user }: { user: any | null | undefined }) {
+export default function RecentTransactions({ user }: { user: User | null | undefined }) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(false);
 
