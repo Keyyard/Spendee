@@ -2,9 +2,9 @@ import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 
 interface TransactionTypeButtonProps {
-  type: "EXPENSE" | "INCOME";
+  type: "expense" | "income";
   label: string;
-  onPress: (type: "EXPENSE" | "INCOME") => void;
+  onPress: (type: "expense" | "income") => void;
   className?: string;
 }
 
@@ -17,7 +17,7 @@ const TransactionTypeButton: React.FC<TransactionTypeButtonProps> = ({
   return (
     <TouchableOpacity
       className={`flex-row items-center justify-between p-4 px-12 rounded-lg ${className}`}
-      onPress={() => onPress(type)}
+      onPress={() => onPress(type as "expense" | "income")}
     >
       <Text className="font-semibold text-lg text-white">{label}</Text>
     </TouchableOpacity>

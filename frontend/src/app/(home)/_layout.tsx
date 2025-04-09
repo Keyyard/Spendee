@@ -1,5 +1,5 @@
-import NavigationBar from '@/src/components/NavigationBar';
-import SignOutScreen from '@/src/components/screens/SignOutScreen';
+import NavigationBar from '@/src/components/navigation/NavigationBar';
+import SignOutScreen from '@/src/components/screens/settings/SignOutScreen';
 import { SignedIn, SignedOut } from '@clerk/clerk-expo';
 import { Stack } from 'expo-router';
 import { View } from 'react-native';

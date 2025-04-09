@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { X } from "lucide-react-native";
 import { useRouter } from "expo-router";
-import TransactionTypeButton from "./buttons/TransactionTypeButton";
+import TransactionTypeButton from "../buttons/TransactionTypeButton";
 
 interface AddTransactionModalProps {
   visible: boolean;
@@ -12,7 +12,7 @@ interface AddTransactionModalProps {
 export default function AddTransactionModal({ visible, onClose }: AddTransactionModalProps) {
   const router = useRouter();
 
-  const handleSelectType = (type: "EXPENSE" | "INCOME") => {
+  const handleSelectType = (type: "expense" | "income") => {
     onClose();
     router.push({
       pathname: "/addTransaction",
@@ -30,13 +30,13 @@ export default function AddTransactionModal({ visible, onClose }: AddTransaction
         <View className="w-full max-w-md mx-auto p-6 rounded-2xl mb-[10vh]">
           <View className="flex-row justify-between">
             <TransactionTypeButton
-              type="EXPENSE"
+              type="expense"
               label="Expense"
               onPress={handleSelectType}
               className="bg-red-500"
             />
             <TransactionTypeButton
-              type="INCOME"
+              type="income"
               label="Income"
               onPress={handleSelectType}
               className="bg-green-500"

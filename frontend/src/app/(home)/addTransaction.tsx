@@ -8,15 +8,16 @@ import {
 } from "@/src/services/transactionService";
 import { getAllCategories } from "@/src/services/categoryService";
 import { X } from "lucide-react-native";
+import { Category } from "../../types/Category";
 
-export default function TransactionForm() {
+export default function AddTransaction() {
   const { user } = useUser();
   const router = useRouter();
   const { type } = useLocalSearchParams();
 
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   if (!user) return;
@@ -43,7 +44,7 @@ export default function TransactionForm() {
       return;
     }
 
-    const category = categories.find((cat) => cat.id === selectedCategory)?.name;
+    const category = categories.find((cat: Category) => cat.id === selectedCategory)?.name;
     if (!category) {
       alert("Invalid category selected.");
       return;

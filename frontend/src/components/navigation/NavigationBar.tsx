@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { useRouter, usePathname } from "expo-router";
-import AddTransactionModal from "./AddTransactionModal";
-import NavigationButton from "./buttons/NavigationButton";
+import AddTransactionModal from "../modals/AddTransactionModal";
+import NavigationButton from "../buttons/NavigationButton";
 import { Home, History, Plus, ChartLine, Settings } from "lucide-react-native";
 
 export default function NavigationBar() {
@@ -23,9 +23,9 @@ export default function NavigationBar() {
           isActive={pathname === "/"}
         />
         <NavigationButton
-          onPress={() => handleNavigation("/(home)/logs")}
+          onPress={() => handleNavigation("/(home)/history")}
           icon={History}
-          isActive={pathname === "/logs"}
+          isActive={pathname === "/history"}
         />
         <NavigationButton
           onPress={() => setModalVisible(true)}

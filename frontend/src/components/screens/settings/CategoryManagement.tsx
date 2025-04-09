@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, FlatList, Alert } from "react-native";
 import {
   getAllCategories,
   createCategory,
   updateCategory,
   deleteCategory,
 } from "@/src/services/categoryService";
-
+import type { Category } from "@/src/types/Category";
 export default function CategoryManagement({ user }: { user: any }) {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([] as Category[]);
   const [newCategoryName, setNewCategoryName] = useState("");
-  const [editingCategory, setEditingCategory] = useState(null);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [editingName, setEditingName] = useState("");
 
   useEffect(() => {
@@ -50,16 +50,32 @@ export default function CategoryManagement({ user }: { user: any }) {
     }
   };
 
-  const handleDeleteCategory = async (categoryId) => {
-    try {
-      await deleteCategory(user.id, categoryId);
-      fetchCategories();  
-    } catch (error) {
-      console.error("Failed to delete category:", error);
-    }
+  const handleDeleteCategory = async (categoryId: string) => {
+    Alert.alert(
+      "Confirm Deletion",
+      "Are you sure you want to delete this category?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deleteCategory(user.id, categoryId);
+              fetchCategories();
+            } catch (error) {
+              console.error("Failed to delete category:", error);
+            }
+          },
+        },
+      ]
+    );
   };
 
-  const renderCategory = ({ item }) => (
+  const renderCategory = ({ item }: { item: Category }) => (
     <View className="flex-row justify-between items-center p-4 bg-accent rounded-lg shadow mb-2">
       {editingCategory?.id === item.id ? (
         <TextInput

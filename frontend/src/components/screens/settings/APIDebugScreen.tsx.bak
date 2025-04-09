@@ -1,0 +1,314 @@
+// import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+// import { useState, useEffect } from "react";
+// import { useUser } from "@clerk/clerk-expo";
+// import {
+//   fetchBackendData,
+//   fetchLimitedRoute,
+//   fetchPublicRoute,
+//   createTransaction,
+//   getAllTransactions,
+//   getTransaction,
+//   updateTransaction,
+//   deleteTransaction,
+//   getAllCategories,
+//   getCategory,
+//   updateCategory,
+//   deleteCategory,
+//   createCategory,
+// } from "@/src/services/testServices";
+// import { Picker } from "@react-native-picker/picker";
+
+// export default function DebugPage() {
+//   const [apiResponse, setApiResponse] = useState<string | null>(null);
+//   const { user } = useUser();
+
+//   const [categories, setCategories] = useState([]);
+//   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+//   useEffect(() => {
+//     const fetchCategories = async () => {
+//       try {
+//         if (!user) return;
+//         const result = await getAllCategories(user.id);
+//         setCategories(result);
+//         if (result.length > 0) {
+//           setSelectedCategory(result[0].id); // Default to the first category
+//         }
+//       } catch (error) {
+//         console.error("Failed to fetch categories:", error);
+//       }
+//     };
+
+//     fetchCategories();
+//   }, [user]);
+
+//   const handleCreateTransaction = async () => {
+//     try {
+//       if (!user || !selectedCategory) return;
+//       const data = {
+//         userId: user.id,
+//         amount: 100.0,
+//         type: "expense", // "expense" or "income"
+//         categoryId: selectedCategory, // Use the selected category ID
+//         description: "Lunch at a restaurant",
+//         date: new Date().toISOString(),
+//       };
+//       console.log(data);
+//       const result = await createTransaction(user.id, data);
+//       console.log("Create Transaction Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Create Transaction Test failed:", error);
+//       setApiResponse(
+//         "Create Transaction Test failed. Check console for details."
+//       );
+//     }
+//   };
+
+//   const handleProtectedRoute = async () => {
+//     try {
+//       if (!user) return;
+//       const data = await fetchBackendData(user.id);
+//       console.log("Protected Route Response:", data);
+//       setApiResponse(JSON.stringify(data, null, 2));
+//     } catch (error) {
+//       console.error("Protected Route Test failed:", error);
+//       setApiResponse("Protected Route Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handleLimitedRoute = async () => {
+//     try {
+//       const data = await fetchLimitedRoute();
+//       console.log("Limited Route Response:", data);
+//       setApiResponse(JSON.stringify(data, null, 2));
+//     } catch (error) {
+//       console.error("Limited Route Test failed:", error);
+//       setApiResponse("Limited Route Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handlePublicRoute = async () => {
+//     try {
+//       const data = await fetchPublicRoute();
+//       console.log("Public Route Response:", data);
+//       setApiResponse(JSON.stringify(data, null, 2));
+//     } catch (error) {
+//       console.error("Public Route Test failed:", error);
+//       setApiResponse("Public Route Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handleCreateCategory = async () => {
+//     try {
+//       if (!user) return;
+//       const data = { userId: user.id, name: "Test" };
+//       const result = await createCategory(user.id, data);
+//       console.log("Create Category Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Create Category Test failed:", error);
+//       setApiResponse("Create Category Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handleGetAllCategories = async () => {
+//     try {
+//       if (!user) return;
+//       const result = await getAllCategories(user.id);
+//       console.log("Get All Categories Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Get All Categories Test failed:", error);
+//       setApiResponse(
+//         "Get All Categories Test failed. Check console for details."
+//       );
+//     }
+//   };
+
+//   const handleGetCategory = async () => {
+//     try {
+//       if (!user) return;
+//       const categoryId = "example-id"; // Replace with a valid category ID
+//       const result = await getCategory(user.id, categoryId);
+//       console.log("Get Category Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Get Category Test failed:", error);
+//       setApiResponse("Get Category Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handleUpdateCategory = async () => {
+//     try {
+//       if (!user) return;
+//       const categoryId = "example-id"; // Replace with a valid category ID
+//       const data = { name: "Updated Category" };
+//       const result = await updateCategory(user.id, categoryId, data);
+//       console.log("Update Category Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Update Category Test failed:", error);
+//       setApiResponse("Update Category Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handleDeleteCategory = async () => {
+//     try {
+//       if (!user) return;
+//       const categoryId = "example-id"; // Replace with a valid category ID
+//       const result = await deleteCategory(user.id, categoryId);
+//       console.log("Delete Category Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Delete Category Test failed:", error);
+//       setApiResponse("Delete Category Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handleGetAllTransactions = async () => {
+//     try {
+//       if (!user) return;
+//       const result = await getAllTransactions(user.id);
+//       console.log("Get All Transactions Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Get All Transactions Test failed:", error);
+//       setApiResponse(
+//         "Get All Transactions Test failed. Check console for details."
+//       );
+//     }
+//   };
+
+//   const handleGetTransaction = async () => {
+//     try {
+//       if (!user) return;
+//       const transactionId = "example-id"; // Replace with a valid transaction ID
+//       const result = await getTransaction(user.id, transactionId);
+//       console.log("Get Transaction Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Get Transaction Test failed:", error);
+//       setApiResponse("Get Transaction Test failed. Check console for details.");
+//     }
+//   };
+
+//   const handleUpdateTransaction = async () => {
+//     try {
+//       if (!user) return;
+//       const transactionId = "example-id"; // Replace with a valid transaction ID
+//       const data = { amount: 200, description: "Updated Transaction" };
+//       const result = await updateTransaction(user.id, transactionId, data);
+//       console.log("Update Transaction Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Update Transaction Test failed:", error);
+//       setApiResponse(
+//         "Update Transaction Test failed. Check console for details."
+//       );
+//     }
+//   };
+
+//   const handleDeleteTransaction = async () => {
+//     try {
+//       if (!user) return;
+//       const transactionId = "example-id"; // Replace with a valid transaction ID
+//       const result = await deleteTransaction(user.id, transactionId);
+//       console.log("Delete Transaction Response:", result);
+//       setApiResponse(JSON.stringify(result, null, 2));
+//     } catch (error) {
+//       console.error("Delete Transaction Test failed:", error);
+//       setApiResponse(
+//         "Delete Transaction Test failed. Check console for details."
+//       );
+//     }
+//   };
+
+//   return (
+//     <ScrollView>
+//       <TouchableOpacity
+//         className="mt-4 px-6 py-2 bg-secondary rounded-lg w-[100%]"
+//         onPress={handleProtectedRoute}
+//       >
+//         <Text className="text-white font-medium text-center">
+//           Test Protected Route
+//         </Text>
+//       </TouchableOpacity>
+
+//       <TouchableOpacity
+//         className="mt-4 px-6 py-2 bg-blue-500 rounded-lg w-[100%]"
+//         onPress={handleLimitedRoute}
+//       >
+//         <Text className="text-white font-medium text-center">
+//           Test Limited Route
+//         </Text>
+//       </TouchableOpacity>
+
+//       <TouchableOpacity
+//         className="mt-4 px-6 py-2 bg-green-500 rounded-lg w-[100%]"
+//         onPress={handlePublicRoute}
+//       >
+//         <Text className="text-white font-medium text-center">
+//           Test Public Route
+//         </Text>
+//       </TouchableOpacity>
+
+//       <TouchableOpacity
+//         className="mt-4 px-6 py-2 bg-secondary rounded-lg w-[100%]"
+//         onPress={handleCreateCategory}
+//       >
+//         <Text className="text-white font-medium text-center">
+//           Create Category
+//         </Text>
+//       </TouchableOpacity>
+
+//       <TouchableOpacity
+//         className="mt-4 px-6 py-2 bg-blue-500 rounded-lg w-[100%]"
+//         onPress={handleGetAllCategories}
+//       >
+//         <Text className="text-white font-medium text-center">
+//           Get All Categories
+//         </Text>
+//       </TouchableOpacity>
+
+//       <TouchableOpacity
+//         className="mt-4 px-6 py-2 bg-green-500 rounded-lg w-[100%]"
+//         onPress={handleGetCategory}
+//       >
+//         <Text className="text-white font-medium text-center">Get Category</Text>
+//       </TouchableOpacity>
+
+//       <Text className="text-gray-800 font-semibold mt-4">API RESPONSE:</Text>
+//       <Text className="mt-2 text-gray-600 font-mono bg-gray-200 p-2 rounded">
+//         {apiResponse || "No response yet."}
+//       </Text>
+//       <Text className="text-lg font-semibold text-gray-800 mb-2">
+//         Select Category:
+//       </Text>
+//       <View className="border border-gray-300 rounded bg-white">
+//         <Picker
+//           selectedValue={selectedCategory}
+//           onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+//           style={{ height: 50, width: "100%" }}
+//         >
+//           {categories.map((category) => (
+//             <Picker.Item
+//               key={category.id}
+//               label={category.name}
+//               value={category.id}
+//             />
+//           ))}
+//         </Picker>
+//       </View>
+
+//       <TouchableOpacity
+//         className="mt-4 px-6 py-3 bg-green-500 rounded-lg"
+//         onPress={handleCreateTransaction}
+//       >
+//         <Text className="text-white font-medium text-center">
+//           Create Transaction
+//         </Text>
+//       </TouchableOpacity>
+//     </ScrollView>
+//   );
+// }

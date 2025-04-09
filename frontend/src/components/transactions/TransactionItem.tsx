@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { Transaction } from "@/src/types/Transaction";
-// Import commented out temporarily to fix rendering conflicts
-// import TransactionModal from "./TransactionModal";
+import type { Transaction } from "@/src/types/Transaction";
+import TransactionModal from "../modals/TransactionModal";
 
 interface TransactionItemProps {
   transaction: Transaction;
   onSave?: () => void;
+  onEdit?: () => void;
 }
 
-const TransactionItem: React.FC<TransactionItemProps> = ({ 
-  transaction, 
-  onSave = () => {} 
+const TransactionItem: React.FC<TransactionItemProps> = ({
+  transaction,
+  onSave = () => { },
+  onEdit = () => { }
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -32,17 +33,19 @@ const TransactionItem: React.FC<TransactionItemProps> = ({
         <View className={`p-4 rounded-3xl m-2 ${typeBackgroundColor}`}>
           <View className="flex-row justify-between items-center">
             <Text className="text-base font-semibold">{transaction.description}</Text>
-            <Text className="text-gray-600">${transaction.amount}</Text>
+            <Text
+              className={`text-base font-semibold ${transaction.type.toLowerCase() === "income" ? "text-green-500" : "text-red-500"}`}
+            >
+              {transaction.type.toLowerCase() === "income" ? `+` : `-`} ${transaction.amount}
+            </Text>
           </View>
           <View className="flex-row justify-between">
             <Text className="text-gray-500 text-sm">{transaction.category}</Text>
-            <Text className="text-gray-700 text-sm font-medium">Type: {formattedType}</Text>
           </View>
           <Text className="text-gray-500 text-xs text-end">{formattedDate}</Text>
         </View>
       </TouchableOpacity>
 
-      {/* TransactionModal temporarily commented out to fix rendering conflicts
       {modalVisible && (
         <TransactionModal
           transaction={transaction}
@@ -51,7 +54,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({
           onSave={onSave}
         />
       )}
-      */}
+
     </>
   );
 };

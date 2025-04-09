@@ -9,7 +9,7 @@ import {
   deleteTransaction,
 } from "@/src/services/transactionService";
 import { getAllCategories } from "@/src/services/categoryService";
-
+import type { Category } from "@/src/types/Category";
 interface TransactionModalProps {
   transaction: Transaction | null;
   visible: boolean;
@@ -25,7 +25,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 }) => {
   const [description, setDescription] = useState(transaction?.description || "");
   const [amount, setAmount] = useState(transaction?.amount.toString() || "");
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([] as Category[]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
         <View className="w-full max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
           <TouchableOpacity
             onPress={onClose}
-            className="absolute top-4 right-4 bg-red-200 p-2 rounded-full"
+            className="absolute top-4 right-4 bg-red-200 p-2 rounded-full z-10"
           >
             <X size={24} color="black" />
           </TouchableOpacity>

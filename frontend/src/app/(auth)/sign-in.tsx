@@ -1,4 +1,4 @@
-import BackHeader from "@/src/components/BackHeader";
+import BackHeader from "@/src/components/navigation/BackHeader";
 import { useSignIn } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import React from "react";
