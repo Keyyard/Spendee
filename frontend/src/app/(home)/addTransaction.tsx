@@ -9,9 +9,10 @@ import {
 import { getAllCategories } from "@/src/services/categoryService";
 import { X } from "lucide-react-native";
 import { Category } from "../../types/Category";
+import { useUserContext } from "@/src/context/userContext";
 
 export default function AddTransaction() {
-  const { user } = useUser();
+  const { user } = useUserContext();
   const router = useRouter();
   const { type } = useLocalSearchParams();
 

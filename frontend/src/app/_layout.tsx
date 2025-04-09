@@ -9,6 +9,7 @@ import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
 
 import { useColorScheme } from '@/src/components/dump/useColorScheme';
+import { CurrencyProvider } from "@/src/context/currencyContext";
 
 import '@/global.css';
 
@@ -51,7 +52,9 @@ function AuthHandler() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Slot />
+      <CurrencyProvider>
+        <Slot />
+      </CurrencyProvider>
     </ThemeProvider>
   );
 }

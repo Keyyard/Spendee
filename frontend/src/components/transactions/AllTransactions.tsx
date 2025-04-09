@@ -4,6 +4,8 @@ import { getAllTransactions } from "@/src/services/transactionService";
 import { useUser } from "@clerk/clerk-expo";
 import TransactionItem from "@/src/components/transactions/TransactionItem";
 import type { Transaction } from "@/src/types/Transaction";
+import { renderTransaction } from "@/src/components/transactions/RenderTransaction";
+
 export default function AllTransactions({ user }: { user: any | null | undefined }) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(false);
@@ -34,10 +36,6 @@ export default function AllTransactions({ user }: { user: any | null | undefined
       setLoading(false);
     }
   };
-
-  const renderTransaction = ({ item }: { item: Transaction }) => (
-    <TransactionItem transaction={item} />
-  );
 
   return (
     <>

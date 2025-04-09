@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
-import { getAllTransactions } from "@/src/services/transactionService";
+import { getLimitTransactions } from "@/src/services/transactionService";
 import { useUser } from "@clerk/clerk-expo";
 import TransactionItem from "./TransactionItem";
 import { Transaction } from "@/src/types/Transaction";
+import { renderTransaction } from "./RenderTransaction";
 
 export default function RecentTransactions({ user }: { user: any | null | undefined }) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -14,7 +15,7 @@ export default function RecentTransactions({ user }: { user: any | null | undefi
       if (!user || loading) return;
       setLoading(true);
       try {
-        const fetchedTransactions = await getAllTransactions(user.id);
+        const fetchedTransactions = await getLimitTransactions(user.id, 5);
         setTransactions(fetchedTransactions);
       } catch (error) {
         console.error("Failed to fetch transactions:", error);
@@ -34,7 +35,7 @@ export default function RecentTransactions({ user }: { user: any | null | undefi
       ) : (
         <FlatList
           data={transactions}
-          renderItem={({ item }) => <TransactionItem transaction={item} />}
+          renderItem={renderTransaction}
           keyExtractor={(item) => item.id}
         />
       )}

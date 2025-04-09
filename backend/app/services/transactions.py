@@ -1,3 +1,4 @@
+from datetime import datetime
 from ..dependencies import db
 from app.schemas.transactions import TransactionSchema
 from fastapi import HTTPException
@@ -10,18 +11,16 @@ async def createTransaction(data: TransactionSchema, db):
     if not data.userId or not data.categoryId:
         raise HTTPException(status_code=400, detail="Missing required fields: userId or categoryId")
 
-    # Find the category by ID
     category = await db.category.find_unique(where={"id": data.categoryId})
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
 
-    # Create the transaction and link it to the category
     transaction = await db.transaction.create(
         data={
             "userId": data.userId,
             "amount": data.amount,
-            "type": data.type.lower(),  # Normalize type to lowercase
-            "categoryId": data.categoryId,  # Use categoryId instead of category name
+            "type": data.type.lower(),  
+            "categoryId": data.categoryId,  
             "description": data.description,
             "date": data.date or datetime.utcnow(),
         },
@@ -34,17 +33,17 @@ async def getAllTransactions(user_id: str, db):
     try:
         transactions = await db.transaction.find_many(
             where={"userId": user_id},
-            include={"category": True}  # Include the category relationship
+            include={"category": True} 
         )
         logger.info(f"Fetched Transactions: {transactions}")
 
         return [
             {
-                "id": transaction.id,  # Include the id field
+                "id": transaction.id,  
                 "userId": transaction.userId,
                 "amount": transaction.amount,
-                "type": transaction.type.lower(),  # Normalize type to lowercase
-                "category": transaction.category.name,  # Include category name
+                "type": transaction.type.lower(), 
+                "category": transaction.category.name,  
                 "description": transaction.description,
                 "date": transaction.date,
             }
@@ -58,19 +57,31 @@ async def getTransaction(transaction_id: str, db):
     transaction = await db.transaction.find_unique(where={"id": transaction_id})
     if not transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
-    transaction.type = transaction.type.lower()  # Normalize type to lowercase
+    transaction.type = transaction.type.lower() 
     return transaction
 
 async def updateTransaction(transaction_id: str, data: dict, db):
-    if "type" in data:
-        data["type"] = data["type"].lower()  # Normalize type to lowercase
-    transaction = await db.transaction.update(
-        where={"id": transaction_id},
-        data=data
-    )
+    transaction = await db.transaction.find_unique(where={"id": transaction_id})
     if not transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
-    return transaction
+
+    if data.get("categoryId"):
+        category = await db.category.find_unique(where={"id": data["categoryId"]})
+        if not category:
+            raise HTTPException(status_code=404, detail="Category not found")
+
+    updated_transaction = await db.transaction.update(
+        where={"id": transaction_id},
+        data={
+            "userId": data.get("userId", transaction.userId),
+            "amount": data.get("amount", transaction.amount),
+            "type": data.get("type", transaction.type).lower(),  
+            "categoryId": data.get("categoryId", transaction.categoryId),  
+            "description": data.get("description", transaction.description),
+            "date": data.get("date", transaction.date),
+        },
+    )
+    return updated_transaction
 
 async def deleteTransaction(transaction_id: str, db):
     transaction = await db.transaction.delete(where={"id": transaction_id})
@@ -89,7 +100,7 @@ async def getLimitedTransactions(user_id: str, limit: int, db):
             {
                 "userId": transaction.userId,
                 "amount": transaction.amount,
-                "type": transaction.type.lower(),  # Normalize type to lowercase
+                "type": transaction.type.lower(),  
                 "categoryId": transaction.categoryId,
                 "description": transaction.description,
                 "date": transaction.date,

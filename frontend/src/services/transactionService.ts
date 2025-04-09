@@ -43,6 +43,27 @@ export async function getAllTransactions(userId: string, page?: number) {
   }
 }
 
+export async function getLimitTransactions(userId: string, limit?: number) {
+  try {
+    const response = await fetch(`${transactionsUrl}/?user_id=${userId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${userId}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch all transactions:", error);
+    throw error;
+  }
+}
+
 export async function getTransaction(userId: string, transactionId: string) {
   try {
     const response = await fetch(`${transactionsUrl}/${transactionId}`, {
@@ -108,27 +129,6 @@ export async function deleteTransaction(userId: string, transactionId: string) {
     return result;
   } catch (error) {
     console.error("Failed to delete transaction:", error);
-    throw error;
-  }
-}
-
-export async function getLimitedTransactions(userId: string, limit: number) {
-  try {
-    const response = await fetch(`${transactionsUrl}/limited?user_id=${userId}&limit=${limit}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${userId}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error("Failed to fetch limited transactions:", error);
     throw error;
   }
 }

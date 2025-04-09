@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { useCurrency } from "@/src/context/currencyContext";
 import type { Transaction } from "@/src/types/Transaction";
 import TransactionModal from "../modals/TransactionModal";
-
+import { formatDate, formatAmount, getFormattedAmount } from "@/src/utils/format";
 interface TransactionItemProps {
   transaction: Transaction;
   onSave?: () => void;
@@ -11,22 +12,14 @@ interface TransactionItemProps {
 
 const TransactionItem: React.FC<TransactionItemProps> = ({
   transaction,
-  onSave = () => { },
-  onEdit = () => { }
+  onSave = () => {},
+  onEdit = () => {},
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { symbol, isPrefix } = useCurrency();
 
-  const typeBackgroundColor = transaction.type.toLowerCase() === "income" ? "transaction-income" : "transaction-expense";
-  const formattedType = transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1);
-  const formattedDate = new Date(transaction.date).toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-
+  const typeBackgroundColor =
+    transaction.type.toLowerCase() === "income" ? "bg-green-100/30" : "bg-red-100/30";
   return (
     <>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -34,15 +27,19 @@ const TransactionItem: React.FC<TransactionItemProps> = ({
           <View className="flex-row justify-between items-center">
             <Text className="text-base font-semibold">{transaction.description}</Text>
             <Text
-              className={`text-base font-semibold ${transaction.type.toLowerCase() === "income" ? "text-green-500" : "text-red-500"}`}
+              className={`text-base font-semibold ${
+                transaction.type.toLowerCase() === "income"
+                  ? "text-green-500"
+                  : "text-red-500"
+              }`}
             >
-              {transaction.type.toLowerCase() === "income" ? `+` : `-`} ${transaction.amount}
+              {transaction.type.toLowerCase() === "income" ? "+" : "-"} {getFormattedAmount(transaction.amount, symbol, isPrefix)}
             </Text>
           </View>
           <View className="flex-row justify-between">
             <Text className="text-gray-500 text-sm">{transaction.category}</Text>
           </View>
-          <Text className="text-gray-500 text-xs text-end">{formattedDate}</Text>
+          <Text className="text-gray-500 text-xs text-end">{formatDate(transaction.date)}</Text>
         </View>
       </TouchableOpacity>
 
@@ -54,9 +51,8 @@ const TransactionItem: React.FC<TransactionItemProps> = ({
           onSave={onSave}
         />
       )}
-
     </>
-  );
+  );  
 };
 
 export default TransactionItem;

@@ -1,1 +1,1 @@
-export type User = any
+export type User = any | null | undefined;
