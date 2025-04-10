@@ -1,9 +1,16 @@
 import React from 'react';
 import { Text, TextInput, View, Button, Switch } from 'react-native';
 import { useCurrency } from "@/src/context/currencyContext";
+import BackHeader from '@/src/components/navigation/BackHeader';
+import { useUserContext } from '@/src/context/userContext';
 
 export default function CurrencySettings() {
+  const { user } = useUserContext();
   const { currency, symbol, isPrefix, setCurrency, setSymbol, setIsPrefix } = useCurrency();
+
+  if (!user) {
+    return <Text>Loading user...</Text>;
+  }
 
   const handleSave = () => {
     setCurrency(currency);
@@ -12,7 +19,8 @@ export default function CurrencySettings() {
   };
 
   return (
-    <View>
+    <View className="flex-1 bg-background p-4">
+      <BackHeader headerTitle='Currency Settings'/>
       <Text className="text-2xl font-bold mb-4">Currency Settings</Text>
       <Text className="text-gray-600 mb-2">Manage your currency settings here.</Text>
 

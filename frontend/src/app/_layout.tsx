@@ -8,10 +8,14 @@ import { useEffect } from 'react';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
 
-import { useColorScheme } from '@/src/components/dump/useColorScheme';
+import { useColorScheme } from '@/src/hooks/useColorScheme'
 import { CurrencyProvider } from "@/src/context/currencyContext";
 
+import { enableScreens } from 'react-native-screens';
+
 import '@/global.css';
+
+enableScreens();
 
 SplashScreen.preventAutoHideAsync();
 

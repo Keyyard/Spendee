@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { X } from "lucide-react-native";
 import type { Category } from "@/src/types/Category";
 
@@ -28,7 +28,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
         <TextInput
           value={editingName}
           onChangeText={setEditingName}
-          className="flex-1 border border-gray-300 p-2 rounded-lg"
+          className="flex-1 border border-gray-300 p-2 rounded-lg bg-white"
         />
       ) : (
         <Text className="text-lg font-semibold">{item.name}</Text>
@@ -65,11 +65,11 @@ const CategoryList: React.FC<CategoryListProps> = ({
   );
 
   return (
-    <View>
+    <ScrollView className="border border-gray-300 rounded-lg p-4 bg-white h-[72vh]">
       {categories.map((category) => (
         <View key={category.id}>{renderCategory({ item: category })}</View>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 

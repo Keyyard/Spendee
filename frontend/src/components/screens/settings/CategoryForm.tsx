@@ -13,12 +13,12 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
   handleCreateCategory,
 }) => {
   return (
-    <View className="flex-row mb-4">
+    <View className="flex-row mb-2 p-4">
       <TextInput
         value={newCategoryName}
         onChangeText={setNewCategoryName}
         placeholder="New category name"
-        className="flex-1 border border-gray-300 p-2 rounded-lg"
+        className="flex-1 border border-gray-300 p-2 rounded-lg bg-white"
       />
       <TouchableOpacity
         onPress={handleCreateCategory}

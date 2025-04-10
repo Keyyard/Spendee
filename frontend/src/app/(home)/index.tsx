@@ -15,6 +15,17 @@ export default function Home() {
 
   return (
     <View className="flex-1 p-4 bg-background">
+      <Stack.Screen
+        options={{
+          headerTitle: "Home",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333",
+        }}
+      />
       <Welcome user={user} />
       <Budget user={user} />
       <RecentTransactions user={user}  />

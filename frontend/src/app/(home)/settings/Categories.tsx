@@ -3,10 +3,17 @@ import { View, Text } from "react-native";
 import { useCategories } from "@/src/hooks/useCategories";
 import type { Category } from "@/src/types/Category";
 import type { User } from "@/src/types/User";
-import CategoryList from "./CategoryList";
-import CategoryForm from "./CategoryForm";
+import CategoryList from "@/src/components/screens/settings/CategoryList";
+import CategoryForm from "@/src/components/screens/settings/CategoryForm";
+import BackHeader from "@/src/components/navigation/BackHeader";
+import { useUserContext } from "@/src/context/userContext";
 
-export default function CategoryManagement({ user }: { user: User }) {
+export default function CategoryManagement() {
+  const { user } = useUserContext();
+  if (!user) {
+    return <Text>Loading user...</Text>;
+  }
+
   const {
     categories,
     loading,
@@ -40,6 +47,7 @@ export default function CategoryManagement({ user }: { user: User }) {
 
   return (
     <View className="bg-gray-100 rounded-lg">
+      <BackHeader headerTitle="Category Management"/>
       {loading && <Text>Loading...</Text>}
       {error && <Text>{error}</Text>}
       <CategoryForm

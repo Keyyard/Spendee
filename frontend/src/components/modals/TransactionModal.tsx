@@ -10,6 +10,8 @@ import {
 } from "@/src/services/transactionService";
 import { getAllCategories } from "@/src/services/categoryService";
 import type { Category } from "@/src/types/Category";
+import { useUserContext } from "@/src/context/userContext";
+
 interface TransactionModalProps {
   transaction: Transaction | null;
   visible: boolean;
@@ -28,10 +30,11 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   const [categories, setCategories] = useState([] as Category[]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
+  const { user } = useUserContext();
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const result = await getAllCategories("userId");
+        const result = await getAllCategories(user.id);
         setCategories(result);
         if (result.length > 0) {
           setSelectedCategory(result[0].id);
@@ -59,9 +62,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 
     try {
       if (transaction) {
-        await updateTransaction("userId", transaction.id, transactionData);
+        await updateTransaction(user.id, transaction.id, transactionData);
       } else {
-        await createTransaction("userId", transactionData);
+        await createTransaction(user.id, transactionData);
       }
       alert("Transaction saved successfully!");
       onSave();
@@ -75,7 +78,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   const handleDelete = async () => {
     try {
       if (transaction) {
-        await deleteTransaction("userId", transaction.id);
+        await deleteTransaction(user.id, transaction.id);
         alert("Transaction deleted successfully!");
         onSave();
         onClose();
