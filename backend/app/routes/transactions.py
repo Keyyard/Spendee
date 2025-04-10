@@ -25,7 +25,7 @@ async def getAllTransactionsRoute(user_id: str, db: Prisma = Depends(getPrisma),
 
 @router.get("/limited")
 async def getLimitedTransactionsRoute(user_id: str, limit: int, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await getLimitedTransactions(user_id, limit, db)
+    return await getLimitedTransactions(user_id, limit)
 
 @router.get("/budget")
 async def get_budget(user_id: str, db=Depends(getPrisma)):
