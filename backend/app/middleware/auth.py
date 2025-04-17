@@ -19,7 +19,6 @@ async def authRequest(userId: str = Security(security), db: Prisma = Depends(get
         # Check if the user exists in the database
         user = await db.user.find_first(where={"id": userId})
         if not user:
-            # Create a SignInSchema object and pass it to signIn
             sign_in_data = SignInSchema(id=userId)
             await signIn(sign_in_data, db)
 

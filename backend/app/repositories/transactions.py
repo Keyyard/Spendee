@@ -38,6 +38,7 @@ class TransactionRepo:
             transactions = await self.db.transaction.find_many(
                 where={"userId": userId},
                 include={"category": True}, 
+                order={"date": "desc"},
             )
             logger.info(f"Fetched Transactions: {transactions}")
 
