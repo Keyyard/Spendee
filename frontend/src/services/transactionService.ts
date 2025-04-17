@@ -6,12 +6,12 @@ export async function createTransaction(userId: string, data: object) {
 }
 
 export async function getAllTransactions(userId: string, page?: number) {
-  const url = `${transactionsUrl}/?user_id=${userId}${page ? `&page=${page}` : ""}`;
+  const url = `${transactionsUrl}/?userId=${userId}${page ? `&page=${page}` : ""}`;
   return apiRequest(url, "GET", userId);
 }
 
 export async function getLimitTransactions(userId: string, limit?: number) {
-  const url = `${transactionsUrl}/?user_id=${userId}${limit ? `&limit=${limit}` : ""}`;
+  const url = `${transactionsUrl}/?userId=${userId}${limit ? `&limit=${limit}` : ""}`;
   return apiRequest(url, "GET", userId);
 }
 
@@ -35,6 +35,6 @@ export async function deleteTransaction(userId: string, transactionId: string) {
 }
 
 export async function getBudget(userId: string) {
-  const url = `${transactionsUrl}/budget?user_id=${userId}`;
+  const url = `${transactionsUrl}/budget?userId=${userId}`;
   return apiRequest(url, "GET", userId);
 }

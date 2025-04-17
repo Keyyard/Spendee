@@ -18,8 +18,8 @@ async def createCategoryRoute(data: CategorySchema, db: Prisma = Depends(getPris
     return await createCategory(data, db)
 
 @router.get("/")
-async def getAllCategoriesRoute(db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await getAllCategories(db)
+async def getAllCategoriesRoute(userId: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
+    return await getAllCategories(userId, db)
 
 @router.get("/{category_id}")
 async def getCategoryRoute(category_id: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):

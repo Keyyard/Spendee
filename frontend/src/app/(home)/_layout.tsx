@@ -1,5 +1,5 @@
 import NavigationBar from '@/src/components/navigation/NavigationBar';
-import SignOutScreen from '@/src/components/screens/settings/SignOutScreen';
+import SignOutScreen from '@/src/components/features/settings/SignOutScreen';     
 import { UserProvider } from '@/src/context/userContext';
 import { SignedIn, SignedOut } from '@clerk/clerk-expo';
 import { Stack } from 'expo-router';

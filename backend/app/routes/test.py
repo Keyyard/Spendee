@@ -10,7 +10,7 @@ def limitedRoute(request: Request):
     return {"message": "This is a limited route"}
 
 @router.get("/protected")
-async def protected_route(user_id: str = Security(authRequest)):
+async def protected_route(userId: str = Security(authRequest)):
     return {"message": f"This is a protected route accessed!"}
 
 @router.get("/public")

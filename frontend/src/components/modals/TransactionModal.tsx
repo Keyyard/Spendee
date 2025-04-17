@@ -11,6 +11,7 @@ import {
 import { getAllCategories } from "@/src/services/categoryService";
 import type { Category } from "@/src/types/Category";
 import { useUserContext } from "@/src/context/userContext";
+import { useQueryClient } from 'react-query';
 
 interface TransactionModalProps {
   transaction: Transaction | null;
@@ -25,6 +26,8 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   onClose,
   onSave,
 }) => {
+  const queryClient = useQueryClient();
+
   const [description, setDescription] = useState(transaction?.description || "");
   const [amount, setAmount] = useState(transaction?.amount.toString() || "");
   const [categories, setCategories] = useState([] as Category[]);
@@ -67,6 +70,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
         await createTransaction(user.id, transactionData);
       }
       alert("Transaction saved successfully!");
+      queryClient.invalidateQueries('transactions'); // Invalidate transactions query
       onSave();
       onClose();
     } catch (error) {

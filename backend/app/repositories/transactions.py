@@ -33,11 +33,11 @@ class TransactionRepo:
         logger.info(f"Transaction Created: {transaction}")
         return transaction
 
-    async def getAllTransactions(self, user_id: str):
+    async def getAllTransactions(self, userId: str):
         try:
             transactions = await self.db.transaction.find_many(
-                where={"userId": user_id},
-                include={"category": True} 
+                where={"userId": userId},
+                include={"category": True}, 
             )
             logger.info(f"Fetched Transactions: {transactions}")
 
@@ -57,15 +57,19 @@ class TransactionRepo:
             logger.error(f"Error fetching transactions: {e}")
             raise HTTPException(status_code=500, detail="Error fetching transactions")
 
-    async def getTransaction(self, transaction_id: str):
-        transaction = await self.db.transaction.find_unique(where={"id": transaction_id})
+    async def getTransaction(self, transactionId: str):
+        transaction = await self.db.transaction.find_unique(
+            where={"id": transactionId},
+            include={"category": True},
+        )
         if not transaction:
             raise HTTPException(status_code=404, detail="Transaction not found")
         transaction.type = transaction.type.lower() 
+        transaction.category.name = transaction.category.name
         return transaction
 
-    async def updateTransaction(self, transaction_id: str, data: dict):
-        transaction = await self.db.transaction.find_unique(where={"id": transaction_id})
+    async def updateTransaction(self, transactionId: str, data: dict):
+        transaction = await self.db.transaction.find_unique(where={"id": transactionId})
         if not transaction:
             raise HTTPException(status_code=404, detail="Transaction not found")
 
@@ -75,7 +79,7 @@ class TransactionRepo:
                 raise HTTPException(status_code=404, detail="Category not found")
 
         updated_transaction = await self.db.transaction.update(
-            where={"id": transaction_id},
+            where={"id": transactionId},
             data={
                 "userId": data.get("userId", transaction.userId),
                 "amount": data.get("amount", transaction.amount),
@@ -87,18 +91,30 @@ class TransactionRepo:
         )
         return updated_transaction
 
-    async def deleteTransaction(self, transaction_id: str):
-        transaction = await self.db.transaction.delete(where={"id": transaction_id})
+    async def deleteTransaction(self, transactionId: str, userId: str):
+        transaction = await self.db.transaction.delete(
+                where={"id": transactionId, "userId": userId}
+        )
         if not transaction:
             raise HTTPException(status_code=404, detail="Transaction not found")
         return {"message": "Transaction deleted successfully"}
 
-    async def getLimitedTransactions(self, user_id: str, limit: int):
+    async def getLimitedTransactions(self, userId: str, limit: int):
         try:
             transactions = await self.db.transaction.find_many(
-                where={"userId": user_id},
+                where={"userId": userId},
                 take=limit,
-                order={"date": "desc"} 
+                order={"date": "desc"} ,
+                include={"category": True},
+                select={
+                    "id": True,
+                    "amount": True,
+                    "type": True,
+                    "category": {"select": {"name": True}},
+                    "description": True,
+                    "date": True,
+                },
+
             )
             return [
                 {

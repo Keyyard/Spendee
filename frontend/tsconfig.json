@@ -14,5 +14,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-, "src/services/testServices.ts.bak", "src/components/screens/APIDebugScreen.tsx.bak"  ]
+, "src/services/testServices.ts.bak", "src/components/features/APIDebugScreen.tsx.bak"  ]
 }

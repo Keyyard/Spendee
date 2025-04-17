@@ -194,7 +194,7 @@
 
 // export async function getAllTransactions(userId: string) {
 //     try {
-//         const response = await fetch(`${transactionsUrl}/?user_id=${userId}`, {
+//         const response = await fetch(`${transactionsUrl}/?userId=${userId}`, {
 //             method: "GET",
 //             headers: {
 //                 Authorization: `Bearer ${userId}`,

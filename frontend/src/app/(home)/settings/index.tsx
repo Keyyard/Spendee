@@ -1,4 +1,4 @@
-import Welcome from "@/src/components/screens/home/Welcome";
+import Welcome from "@/src/components/features/home/Welcome";
 import { useUserContext } from "@/src/context/userContext";
 import { Link, Stack } from "expo-router";
 import { Text, View } from "react-native";

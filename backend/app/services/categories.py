@@ -9,8 +9,10 @@ async def createCategory(data: CategorySchema, db):
     })
     return category
 
-async def getAllCategories(db):
-    categories = await db.category.find_many()
+async def getAllCategories(userId, db):
+    categories = await db.category.find_many(
+        where={"userId": userId}
+    )
     return categories
 
 async def getCategory(category_id: str, db):

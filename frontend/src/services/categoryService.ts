@@ -6,7 +6,7 @@ export async function createCategory(userId: string, data: object) {
 }
 
 export async function getAllCategories(userId: string) {
-  const url = `${categoriesUrl}/?user_id=${userId}`;
+  const url = `${categoriesUrl}/?userId=${userId}`;
   return apiRequest(url, "GET", userId);
 }
 

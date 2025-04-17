@@ -1,5 +1,5 @@
-import Welcome from "@/src/components/screens/home/Welcome";
-import Budget from "@/src/components/screens/home/Budget";
+import Welcome from "@/src/components/features/home/Welcome";
+import Budget from "@/src/components/features/home/Budget";
 import RecentTransactions from "@/src/components/transactions/RecentTransactions";
 import { useUser } from "@clerk/clerk-expo";
 import { View, Text } from "react-native";

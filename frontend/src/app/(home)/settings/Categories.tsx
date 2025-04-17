@@ -3,8 +3,8 @@ import { View, Text } from "react-native";
 import { useCategories } from "@/src/hooks/useCategories";
 import type { Category } from "@/src/types/Category";
 import type { User } from "@/src/types/User";
-import CategoryList from "@/src/components/screens/settings/CategoryList";
-import CategoryForm from "@/src/components/screens/settings/CategoryForm";
+import CategoryList from "@/src/components/features/settings/CategoryList";
+import CategoryForm from "@/src/components/features/settings/CategoryForm";
 import BackHeader from "@/src/components/navigation/BackHeader";
 import { useUserContext } from "@/src/context/userContext";
 

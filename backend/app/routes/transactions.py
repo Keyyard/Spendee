@@ -20,25 +20,25 @@ async def createTransactionRoute(data: TransactionSchema, db: Prisma = Depends(g
     return await createTransaction(data, db)
 
 @router.get("/")
-async def getAllTransactionsRoute(user_id: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await getAllTransactions(user_id, db)
+async def getAllTransactionsRoute(userId: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
+    return await getAllTransactions(userId, db)
 
 @router.get("/limited")
-async def getLimitedTransactionsRoute(user_id: str, limit: int, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await getLimitedTransactions(user_id, limit)
+async def getLimitedTransactionsRoute(userId: str, limit: int, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
+    return await getLimitedTransactions(userId, limit)
 
 @router.get("/budget")
-async def get_budget(user_id: str, db=Depends(getPrisma)):
-    return await calculateBudget(user_id, db)
+async def get_budget(userId: str, db=Depends(getPrisma)):
+    return await calculateBudget(userId, db)
 
-@router.get("/{transaction_id}")
-async def getTransactionRoute(transaction_id: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await getTransaction(transaction_id, db)
+@router.get("/{transactionId}")
+async def getTransactionRoute(transactionId: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
+    return await getTransaction(transactionId, db)
 
-@router.put("/{transaction_id}")
-async def updateTransactionRoute(transaction_id: str, data: TransactionSchema, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await updateTransaction(transaction_id, data, db)
+@router.put("/{transactionId}")
+async def updateTransactionRoute(transactionId: str, data: TransactionSchema, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
+    return await updateTransaction(transactionId, data, db)
 
-@router.delete("/{transaction_id}")
-async def deleteTransactionRoute(transaction_id: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await deleteTransaction(transaction_id, db)
+@router.delete("/{transactionId}")
+async def deleteTransactionRoute(transactionId: str, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
+    return await deleteTransaction(transactionId, db)

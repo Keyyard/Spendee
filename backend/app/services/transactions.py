@@ -11,25 +11,25 @@ async def createTransaction(data: TransactionSchema, db):
     repo = Repo.TransactionRepo(db)
     return await repo.createTransaction(data)
 
-async def getAllTransactions(user_id: str, db):
+async def getAllTransactions(userId: str, db):
     repo = Repo.TransactionRepo(db)
-    return await repo.getAllTransactions(user_id)
+    return await repo.getAllTransactions(userId)
     
-async def getTransaction(transaction_id: str, db):
+async def getTransaction(transactionId: str, db):
     repo = Repo.TransactionRepo(db)
-    return await repo.getTransaction(transaction_id)
+    return await repo.getTransaction(transactionId)
 
-async def updateTransaction(transaction_id: str, data: dict, db):
+async def updateTransaction(transactionId: str, data: dict, db):
     repo = Repo.TransactionRepo(db)
-    return await repo.updateTransaction(transaction_id, data)
+    return await repo.updateTransaction(transactionId, data)
 
-async def deleteTransaction(transaction_id: str, db):
+async def deleteTransaction(userId: str, transactionId: str, db):
     repo = Repo.TransactionRepo(db)
-    return await repo.deleteTransaction(transaction_id)
+    return await repo.deleteTransaction(userId, transactionId)
 
-async def getLimitedTransactions(user_id: str, limit: int, db):
+async def getLimitedTransactions(userId: str, limit: int, db):
     repo = Repo.TransactionRepo(db)
-    return await repo.getLimitedTransactions(user_id, limit)
+    return await repo.getLimitedTransactions(userId, limit)
     
 async def calculateBudget(user_id: str, db):
     transactions = await db.transaction.find_many(where={"userId": user_id})
