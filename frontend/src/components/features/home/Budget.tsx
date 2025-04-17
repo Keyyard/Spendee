@@ -5,29 +5,21 @@ import { getBudget } from "@/src/services/transactionService";
 import { useCurrency } from "@/src/context/currencyContext";
 import { formatBudget } from "@/src/utils/format";
 import type { User } from "@/src/types/User";
+import { useTransactionContext } from "@/src/context/transactionsContext";
 
 export default function Budget({ user }: { user: User | null | undefined }) {
   const { currency, symbol, isPrefix } = useCurrency();
-
-  const [budget, setBudget] = useState<number | null>(null);
+  const { budget, useBudget } = useTransactionContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      fetchBudget();
-    }
+    const fetchBudget = async () => {
+        setLoading(true);
+        await useBudget();
+        setLoading(false);
+    };
+    fetchBudget();
   }, [user]);
-
-  const fetchBudget = async () => {
-    try {
-      const fetchedBudget = await getBudget(user.id);
-      setBudget(fetchedBudget);
-    } catch (error) {
-      console.error("Failed to fetch budget:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <TouchableOpacity className="w-full py-4 bg-blue-500 rounded-lg shadow-lg mt-2 text-left items-start px-4">
