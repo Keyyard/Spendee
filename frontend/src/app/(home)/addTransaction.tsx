@@ -10,7 +10,7 @@ import { getAllCategories } from "@/src/services/categoryService";
 import { X } from "lucide-react-native";
 import { Category } from "../../types/Category";
 import { useUserContext } from "@/src/context/userContext";
-
+import { useTransactionContext } from "@/src/context/transactionsContext";
 export default function AddTransaction() {
   const { user } = useUserContext();
   const router = useRouter();
@@ -21,9 +21,10 @@ export default function AddTransaction() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
+  const { useAddTransaction } = useTransactionContext();
   if (!user) return;
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchCategories = async () => {
       try {
         const result = await getAllCategories(user.id);
@@ -50,9 +51,12 @@ export default function AddTransaction() {
       alert("Invalid category selected.");
       return;
     }
+
+    const validType = type === "income" || type === "expense" ? type : "expense";
+    
     const transactionData = {
       userId: user.id,
-      type,
+      type: validType,
       amount: parseFloat(amount),
       description,
       categoryId: selectedCategory,
@@ -61,12 +65,13 @@ export default function AddTransaction() {
 
     console.log("Transaction Data:", transactionData);
     try {
-      await createTransaction(user.id, transactionData);
+      await useAddTransaction(transactionData);
       alert("Transaction added successfully!");
-      router.back();
-    } catch (error) {
+      router.push("/");
+    }
+    catch (error) {
       console.error("Error adding transaction:", error);
-      alert("Failed to add transaction.");
+      alert("Failed to add transaction. Please try again.");
     }
   };
 

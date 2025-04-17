@@ -1,43 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
-import { getLimitTransactions } from "@/src/services/transactionService";
-import { useUser } from "@clerk/clerk-expo";
-import TransactionItem from "./TransactionItem";
-import { Transaction } from "@/src/types/Transaction";
+import { useTransactionContext } from "@/src/context/transactionsContext";
 import { renderTransaction } from "./RenderTransaction";
-import type { User } from "@/src/types/User";
 
-export default function RecentTransactions({ user }: { user: User | null | undefined }) {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      if (!user || loading) return;
-      setLoading(true);
-      try {
-        const fetchedTransactions = await getLimitTransactions(user.id, 5);
-        setTransactions(fetchedTransactions);
-      } catch (error) {
-        console.error("Failed to fetch transactions:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTransactions();
-  }, [user]);
+export default function RecentTransactions() {
+  const { recentTransactions } = useTransactionContext();
 
   return (
     <View>
       <Text className="text-xl font-bold my-4">Recent Transactions</Text>
-      {loading ? (
+      {recentTransactions.length === 0 ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <FlatList
-          data={transactions}
+          data={recentTransactions}
           renderItem={renderTransaction}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id || ""}
         />
       )}
     </View>
