@@ -1,6 +1,6 @@
 from datetime import datetime
 from ..dependencies import getPrisma
-from app.schemas.transactions import TransactionSchema
+from app.schemas.transactions import TransactionSchema, TransactionUpdateSchema
 from fastapi import HTTPException, Depends
 import logging
 import json
@@ -69,32 +69,34 @@ class TransactionRepo:
         transaction.category.name = transaction.category.name
         return transaction
 
-    async def updateTransaction(self, transactionId: str, data: dict):
+    async def updateTransaction(self, transactionId: str, data: TransactionUpdateSchema):
         transaction = await self.db.transaction.find_unique(where={"id": transactionId})
         if not transaction:
             raise HTTPException(status_code=404, detail="Transaction not found")
 
-        if data.get("categoryId"):
-            category = await self.db.category.find_unique(where={"id": data["categoryId"]})
+        if data.categoryId:
+            category = await self.db.category.find_unique(where={"id": data.categoryId})
             if not category:
                 raise HTTPException(status_code=404, detail="Category not found")
 
+        update_data = {
+            "amount": data.amount,
+            "categoryId": data.categoryId,
+            "description": data.description,
+            "date": data.date,
+        }
+
+        update_data = {key: value for key, value in update_data.items() if value is not None}
+
         updated_transaction = await self.db.transaction.update(
             where={"id": transactionId},
-            data={
-                "userId": data.get("userId", transaction.userId),
-                "amount": data.get("amount", transaction.amount),
-                "type": data.get("type", transaction.type).lower(),  
-                "categoryId": data.get("categoryId", transaction.categoryId),  
-                "description": data.get("description", transaction.description),
-                "date": data.get("date", transaction.date),
-            },
+            data=update_data,
         )
         return updated_transaction
 
-    async def deleteTransaction(self, transactionId: str, userId: str):
+    async def deleteTransaction(self, transactionId: str):
         transaction = await self.db.transaction.delete(
-                where={"id": transactionId, "userId": userId}
+                where={"id": transactionId}
         )
         if not transaction:
             raise HTTPException(status_code=404, detail="Transaction not found")

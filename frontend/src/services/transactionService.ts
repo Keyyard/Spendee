@@ -23,8 +23,20 @@ export async function getTransaction(userId: string, transactionId: string) {
 export async function updateTransaction(
   userId: string,
   transactionId: string,
-  data: object
+  data: {
+    amount: number;
+    categoryId: string;
+    description?: string;
+    date?: string;
+  }
 ) {
+  if (!data.amount || typeof data.amount !== "number") {
+    throw new Error("Invalid or missing 'amount'. It must be a number.");
+  }
+  if (!data.categoryId || typeof data.categoryId !== "string") {
+    throw new Error("Invalid or missing 'categoryId'. It must be a string.");
+  }
+
   const url = `${transactionsUrl}/${transactionId}`;
   return apiRequest(url, "PUT", userId, data);
 }

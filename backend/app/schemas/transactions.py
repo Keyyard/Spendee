@@ -5,7 +5,13 @@ from datetime import datetime
 class TransactionSchema(BaseModel):
     userId: str
     amount: float
-    type: str  # Ensure this is validated as 'INCOME' or 'EXPENSE' in the application logic
+    type: str # 'income' or 'expense'
     categoryId: str 
     description: Optional[str] = None
-    date: Optional[datetime] = datetime.utcnow()
+    date: Optional[datetime] = None
+    
+class TransactionUpdateSchema(BaseModel):
+    amount: Optional[float] = None
+    categoryId: Optional[str] = None 
+    description: Optional[str] = None
+    date: Optional[datetime] = None

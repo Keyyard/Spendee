@@ -1,6 +1,6 @@
 from datetime import datetime
 from ..dependencies import db
-from app.schemas.transactions import TransactionSchema
+from app.schemas.transactions import TransactionSchema, TransactionUpdateSchema
 from fastapi import HTTPException
 import logging
 import app.repositories.transactions as Repo
@@ -19,13 +19,13 @@ async def getTransaction(transactionId: str, db):
     repo = Repo.TransactionRepo(db)
     return await repo.getTransaction(transactionId)
 
-async def updateTransaction(transactionId: str, data: dict, db):
+async def updateTransaction(transactionId: str, data: TransactionUpdateSchema, db):
     repo = Repo.TransactionRepo(db)
     return await repo.updateTransaction(transactionId, data)
 
-async def deleteTransaction(userId: str, transactionId: str, db):
+async def deleteTransaction(transactionId: str, db):
     repo = Repo.TransactionRepo(db)
-    return await repo.deleteTransaction(userId, transactionId)
+    return await repo.deleteTransaction(transactionId)
 
 async def getLimitedTransactions(userId: str, limit: int, db):
     repo = Repo.TransactionRepo(db)

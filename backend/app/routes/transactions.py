@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends, Security
-from app.schemas.transactions import TransactionSchema
+from fastapi import APIRouter, Depends, Security, HTTPException
+from app.schemas.transactions import TransactionSchema, TransactionUpdateSchema
 from app.services.transactions import (
     createTransaction,
     getAllTransactions,
@@ -12,6 +12,10 @@ from app.services.transactions import (
 from app.middleware.auth import authRequest
 from app.dependencies import getPrisma
 from prisma import Prisma
+from datetime import datetime
+import logging
+
+logger = logging.getLogger("transactions")
 
 router = APIRouter()
 
@@ -25,7 +29,7 @@ async def getAllTransactionsRoute(userId: str, db: Prisma = Depends(getPrisma), 
 
 @router.get("/limited")
 async def getLimitedTransactionsRoute(userId: str, limit: int, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
-    return await getLimitedTransactions(userId, limit)
+    return await getLimitedTransactions(userId, db, limit)
 
 @router.get("/budget")
 async def get_budget(userId: str, db=Depends(getPrisma)):
@@ -36,7 +40,7 @@ async def getTransactionRoute(transactionId: str, db: Prisma = Depends(getPrisma
     return await getTransaction(transactionId, db)
 
 @router.put("/{transactionId}")
-async def updateTransactionRoute(transactionId: str, data: TransactionSchema, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
+async def updateTransactionRoute(transactionId: str, data: TransactionUpdateSchema, db: Prisma = Depends(getPrisma), request = Security(authRequest)):
     return await updateTransaction(transactionId, data, db)
 
 @router.delete("/{transactionId}")

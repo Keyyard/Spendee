@@ -11,6 +11,7 @@ import {
 import { getAllCategories } from "@/src/services/categoryService";
 import type { Category } from "@/src/types/Category";
 import { useUserContext } from "@/src/context/userContext";
+import { useTransactionContext } from "@/src/context/transactionsContext";
 
 interface TransactionModalProps {
   transaction: Transaction | null;
@@ -29,8 +30,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   const [amount, setAmount] = useState(transaction?.amount.toString() || "");
   const [categories, setCategories] = useState([] as Category[]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
   const { user } = useUserContext();
+
+  const {useDeleteTransaction, useEditTransaction} = useTransactionContext();
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -62,9 +64,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 
     try {
       if (transaction && transaction.id) {
-          await updateTransaction(user.id, transaction.id, transactionData);
-      } else {
-        await createTransaction(user.id, transactionData);
+        await useEditTransaction(transaction.id, transactionData);
       }
       alert("Transaction saved successfully!");
       onSave();
@@ -78,7 +78,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   const handleDelete = async () => {
     try {
       if (transaction && transaction.id) {
-        await deleteTransaction(user.id, transaction.id);
+        await useDeleteTransaction(transaction.id);
         alert("Transaction deleted successfully!");
         onSave();
         onClose();
