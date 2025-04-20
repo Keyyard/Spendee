@@ -8,3 +8,10 @@ export type Transaction = {
   categoryId?: string;
   userId?: string;
 };
+
+export type UpdateTransactionType = {
+  amount: number;
+  categoryId: string;
+  description?: string;
+  date?: string;
+};

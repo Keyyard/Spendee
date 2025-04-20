@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createTransaction, deleteTransaction, getAllTransactions, updateTransaction, getBudget, getLimitTransactions } from "../services/transactionService";
-import { Transaction } from "../types/Transaction";
+import { Transaction, UpdateTransactionType } from "../types/Transaction";
 import type { User } from "../types/User";
 import { useUserContext } from "./userContext";
 
@@ -15,7 +15,7 @@ interface TransactionsContextType {
     useAllTransactions: () => Promise<void>;
     useAddTransaction: (transaction: Transaction) => Promise<void>;
     useDeleteTransaction: (transactionId: string) => Promise<void>;
-    useEditTransaction: (transactionId: string, updatedTransaction: Transaction) => Promise<void>;
+    useEditTransaction: (transactionId: string, updatedTransaction: UpdateTransactionType) => Promise<void>;
 }
 
 export const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
@@ -58,7 +58,7 @@ export const TransactionsProvider = ({ children }: { children: React.ReactNode }
             setBudget((prev) => (prev || 0) - (allTransactions.find((transaction) => transaction.id === transactionId)?.amount || 0));
         }
 
-    const useEditTransaction = async (transactionId: string, updatedTransaction: Transaction) => {
+    const useEditTransaction = async (transactionId: string, updatedTransaction: UpdateTransactionType) => {
         if (!user) return
             const updated = await updateTransaction(user.id, transactionId, updatedTransaction);
             setAllTransactions((prev) => prev.map((transaction) => (transaction.id === transactionId ? updated : transaction)));
