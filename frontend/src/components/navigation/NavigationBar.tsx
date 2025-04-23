@@ -33,9 +33,9 @@ export default function NavigationBar() {
           isSpecial
         />
         <NavigationButton
-          onPress={() => handleNavigation("/(home)/chart")}
+          onPress={() => handleNavigation("/(home)/analysis")}
           icon={ChartLine}
-          isActive={pathname === "/chart"}
+          isActive={pathname === "/analysis"}
         />
         <NavigationButton
           onPress={() => handleNavigation("/(home)/settings")}
