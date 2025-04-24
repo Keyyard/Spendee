@@ -5,9 +5,10 @@ from fastapi import HTTPException, Depends
 import logging
 import json
 from prisma import Prisma
+from .base_transaction_repository import BaseTransactionRepository
 
 logger = logging.getLogger("transactions")
-class TransactionRepo:
+class TransactionRepo(BaseTransactionRepository):
     def __init__(self, db: Prisma = Depends(getPrisma)):
         self.db = db
 
