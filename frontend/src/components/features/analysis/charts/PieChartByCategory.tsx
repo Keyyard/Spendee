@@ -43,7 +43,7 @@ export default function PieChartByCategory({ transactions, selectedMonth, setSel
 
   return (
     <View className="flex items-center justify-center w-full">
-      <View className="flex-col items-center justify-center" style={{ width: 220 }}>
+      <View className="flex-col items-center justify-center w-[220px]">
         <View className="flex-row items-center justify-between mb-3 w-full">
           <TouchableOpacity onPress={handlePrevMonth} className="p-2 rounded-full bg-gray-100 mr-6">
             <Text className="text-xl text-blue-500 font-bold">{"<"}</Text>
@@ -72,10 +72,10 @@ export default function PieChartByCategory({ transactions, selectedMonth, setSel
           )}
         </View>
         {pieData.length > 0 && (
-          <View className="ml-6 justify-center min-w-[100px]" style={{ flex: 1 }}>
+          <View className="ml-6 justify-center min-w-[100px] flex-1">
             {pieData.map((item) => (
               <View key={item.text} className="flex-row items-center mb-3">
-                <View style={{ width: 14, height: 14, backgroundColor: item.color, borderRadius: 7 }} className="mr-2" />
+                <View className="w-3.5 h-3.5 rounded-full mr-2" style={{ backgroundColor: item.color }} />
                 <Text className="text-base font-bold text-gray-800">{item.text}</Text>
               </View>
             ))}

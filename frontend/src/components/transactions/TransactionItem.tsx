@@ -17,9 +17,8 @@ const TransactionItem: React.FC<TransactionItemProps> = ({
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { symbol, isPrefix } = useCurrency();
-
   const typeBackgroundColor =
-    transaction.type.toLowerCase() === "income" ? "bg-green-100/30" : "bg-red-100/30";
+    (transaction.type?.toLowerCase() ?? "") === "income" ? "bg-green-100/30" : "bg-red-100/30";
   return (
     <>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -28,12 +27,12 @@ const TransactionItem: React.FC<TransactionItemProps> = ({
             <Text className="text-base font-semibold">{transaction.description}</Text>
             <Text
               className={`text-base font-semibold ${
-                transaction.type.toLowerCase() === "income"
+                (transaction.type?.toLowerCase() ?? "") === "income"
                   ? "text-green-500"
                   : "text-red-500"
               }`}
             >
-              {transaction.type.toLowerCase() === "income" ? "+" : "-"} {getFormattedAmount(transaction.amount, symbol, isPrefix)}
+              {transaction.type?.toLowerCase() === "income" ? "+" : "-"} {getFormattedAmount(transaction.amount, symbol, isPrefix)}
             </Text>
           </View>
           <View className="flex-row justify-between">

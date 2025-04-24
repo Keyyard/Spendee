@@ -15,7 +15,7 @@ export default function NavigationBar() {
   };
 
   return (
-    <>
+    <View className="bg-gray-100 pb-12">
       <View className="absolute bottom-0 left-0 right-0 flex-row justify-between items-center bg-gray-100 rounded-3xl shadow-lg p-4 mx-4 mb-4">
         <NavigationButton
           onPress={() => handleNavigation("/(home)")}
@@ -45,6 +45,6 @@ export default function NavigationBar() {
       </View>
 
       <AddTransactionModal visible={isModalVisible} onClose={() => setModalVisible(false)} />
-    </>
+    </View>
   );
 }

@@ -2,12 +2,16 @@ import React, { useMemo } from "react";
 import { View, Text } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 import { MONTHS } from "@/src/constants/chart";
+import { useCurrency } from "@/src/context/currencyContext";
+import { getFormattedAmount } from "@/src/utils/format";
 
 interface DualLineChartProps {
   transactions: any[];
 }
 
 export default function DualLineChart({ transactions }: DualLineChartProps) {
+  const { symbol, isPrefix } = useCurrency();
+  
   const monthlyData = useMemo(() => {
     const monthlyMap: { [key: number]: { income: number; expense: number } } = {};
     transactions.forEach((t) => {
@@ -24,24 +28,28 @@ export default function DualLineChart({ transactions }: DualLineChartProps) {
 
   const incomeData = monthlyData.map((item, idx) => ({
     value: item.income,
-    dataPointText: item.income > 0 ? String(item.income) : '',
+    dataPointText: item.income > 0 ? getFormattedAmount(item.income, symbol, isPrefix) : '',
     label: MONTHS[idx],
   }));
+  
   const expenseData = monthlyData.map((item, idx) => ({
     value: item.expense,
-    dataPointText: item.expense > 0 ? String(item.expense) : '',
+    dataPointText: item.expense > 0 ? getFormattedAmount(item.expense, symbol, isPrefix) : '',
     label: MONTHS[idx],
   }));
 
+  const screenWidth = 360; 
+  const chartSpacing = Math.floor((screenWidth - 60) / 14); 
+
   return (
-    <View>
+    <View className="w-full pt-2">
       <LineChart
         data={incomeData}
         data2={expenseData}
-        height={250}
+        height={240}
         showVerticalLines
-        spacing={44}
-        initialSpacing={0}
+        spacing={chartSpacing}
+        initialSpacing={chartSpacing / 2}
         color1="#36A2EB"
         color2="#FF6384"
         textColor1="#36A2EB"
@@ -50,35 +58,37 @@ export default function DualLineChart({ transactions }: DualLineChartProps) {
         dataPointsWidth={6}
         dataPointsColor1="#36A2EB"
         dataPointsColor2="#FF6384"
-        textShiftY={5}
-        textShiftX={20}
-        textFontSize={13}
+        textShiftY={20}
+        textShiftX={14}
+        textFontSize={12}
         xAxisLabelTexts={MONTHS}
+        curved
         showDataPointOnFocus
         showStripOnFocus
-        stripColor="#aaa"
-        stripHeight={180}
+        stripColor="rgba(170,170,170,0.1)"
+        stripHeight={200}
         yAxisColor="#eee"
         xAxisColor="#eee"
-        yAxisTextStyle={{ color: '#888', fontSize: 12 }}
-        xAxisLabelTextStyle={{ color: '#888', fontSize: 12, marginTop: 4 }}
+        yAxisTextStyle={{ color: '#888', fontSize: 11 }}
+        xAxisLabelTextStyle={{ color: '#888', fontSize: 11, marginTop: 8 }}
         hideRules={false}
-        rulesColor="#eee"
+        rulesColor="#f0f0f0"
         rulesType="solid"
-        yAxisLabelWidth={40}
+        yAxisLabelWidth={45}
         xAxisIndicesColor="#eee"
-        xAxisIndicesHeight={8}
-        xAxisIndicesWidth={2}
+        xAxisIndicesHeight={4}
+        xAxisIndicesWidth={1}
         showXAxisIndices
+        rotateLabel
       />
-      <View className="flex-row justify-center mt-2">
-        <View className="flex-row items-center mr-6">
-          <View style={{ width: 14, height: 4, backgroundColor: '#36A2EB', marginRight: 6, borderRadius: 2 }} />
-          <Text className="text-xs text-gray-800">Income</Text>
+      <View className="flex-row justify-center mt-6 mb-2">
+        <View className="flex-row items-center mr-8">
+          <View className="w-4 h-1 bg-[#36A2EB] mr-2 rounded-sm" />
+          <Text className="text-sm text-gray-700 font-medium">Income</Text>
         </View>
         <View className="flex-row items-center">
-          <View style={{ width: 14, height: 4, backgroundColor: '#FF6384', marginRight: 6, borderRadius: 2 }} />
-          <Text className="text-xs text-gray-800">Expense</Text>
+          <View className="w-4 h-1 bg-[#FF6384] mr-2 rounded-sm" />
+          <Text className="text-sm text-gray-700 font-medium">Expense</Text>
         </View>
       </View>
     </View>
