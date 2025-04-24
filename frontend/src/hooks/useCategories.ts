@@ -6,6 +6,7 @@ import {
   deleteCategory,
 } from "@/src/services/categoryService";
 import type { Category } from "@/src/types/Category";
+import { getErrorMessage, logError } from "@/src/utils/errorHandler";
 
 export function useCategories(userId: string) {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -25,8 +26,8 @@ export function useCategories(userId: string) {
       const result = await getAllCategories(userId);
       setCategories(result);
     } catch (err) {
-      setError("Failed to fetch categories");
-      console.error(err);
+      setError(getErrorMessage(err));
+      logError(err);
     } finally {
       setLoading(false);
     }
@@ -40,8 +41,8 @@ export function useCategories(userId: string) {
       await createCategory(userId, { name });
       fetchCategories();
     } catch (err) {
-      setError("Failed to create category");
-      console.error(err);
+      setError(getErrorMessage(err));
+      logError(err);
     } finally {
       setLoading(false);
     }
@@ -55,8 +56,8 @@ export function useCategories(userId: string) {
       await updateCategory(userId, categoryId, { name });
       fetchCategories();
     } catch (err) {
-      setError("Failed to update category");
-      console.error(err);
+      setError(getErrorMessage(err));
+      logError(err);
     } finally {
       setLoading(false);
     }
@@ -69,8 +70,8 @@ export function useCategories(userId: string) {
       await deleteCategory(userId, categoryId);
       fetchCategories();
     } catch (err) {
-      setError("Failed to delete category");
-      console.error(err);
+      setError(getErrorMessage(err));
+      logError(err);
     } finally {
       setLoading(false);
     }

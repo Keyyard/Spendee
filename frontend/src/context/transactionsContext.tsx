@@ -3,6 +3,7 @@ import { createTransaction, deleteTransaction, getAllTransactions, updateTransac
 import { Transaction, UpdateTransactionType } from "../types/Transaction";
 import type { User } from "../types/User";
 import { useUserContext } from "./userContext";
+import { getErrorMessage, logError } from "@/src/utils/errorHandler";
 
 const TransactionsContext = createContext<TransactionsContextType | null>(null);
 
@@ -43,27 +44,39 @@ export const TransactionsProvider = ({ children }: { children: React.ReactNode }
     };
 
     const useAddTransaction = async (transaction: Transaction) => {
-        if (!user) return
+        if (!user) return;
+        try {
             const newTransaction = await createTransaction(user.id, transaction);
             setBudget((prev) => (prev || 0) + transaction.amount);
             setAllTransactions((prev) => [...prev, newTransaction]);
             setRecentTransactions((prev) => [newTransaction, ...prev]);
+        } catch (err) {
+            logError(err);
         }
+    };
 
     const useDeleteTransaction = async (transactionId: string) => {
-        if (!user) return
+        if (!user) return;
+        try {
             await deleteTransaction(user.id, transactionId);
             setAllTransactions((prev) => prev.filter((transaction) => transaction.id !== transactionId));
             setRecentTransactions((prev) => prev.filter((transaction) => transaction.id !== transactionId));
             setBudget((prev) => (prev || 0) - (allTransactions.find((transaction) => transaction.id === transactionId)?.amount || 0));
+        } catch (err) {
+            logError(err);
         }
+    };
 
     const useEditTransaction = async (transactionId: string, updatedTransaction: UpdateTransactionType) => {
-        if (!user) return
+        if (!user) return;
+        try {
             const updated = await updateTransaction(user.id, transactionId, updatedTransaction);
             setAllTransactions((prev) => prev.map((transaction) => (transaction.id === transactionId ? updated : transaction)));
             setRecentTransactions((prev) => prev.map((transaction) => (transaction.id === transactionId ? updated : transaction)));
+        } catch (err) {
+            logError(err);
         }
+    }
     useEffect(() => {
         useBudget();
         useRecentTransactions();
