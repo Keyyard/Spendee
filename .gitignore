@@ -11,3 +11,5 @@ node_modules/
 lynx/
 frontend.dump/
 frontend.backup/
+
+.env
