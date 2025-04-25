@@ -15,7 +15,7 @@ export default function BackHeader({ headerTitle = "" }: BackHeaderProps) {
         headerTitle: headerTitle,
         headerTitleAlign: "center",
         headerShadowVisible: false,
-        headerLeft: () => <BackButton />, // Reusable BackButton component
+        headerLeft: () => <BackButton />,
       }}
     />
   );

@@ -8,6 +8,7 @@ import { View } from 'react-native';
 
 export default function HomeLayout() {
   return (
+    <>
     <View className="flex-1 bg-gray-100">
       <SignedIn>
         <UserProvider>
@@ -15,11 +16,12 @@ export default function HomeLayout() {
             <Stack screenOptions={{ headerShown: false }} />
           </TransactionsProvider>
         </UserProvider>
-        <NavigationBar />
       </SignedIn>
       <SignedOut>
         <SignOutScreen />
       </SignedOut>
     </View>
+  <NavigationBar />
+</>
   );
 }

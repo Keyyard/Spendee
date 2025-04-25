@@ -1,5 +1,4 @@
 import React from "react";
-import UserSettings from "@/src/components/screens/settings/UserSettings";
 import { SignOutButton } from "@/src/components/buttons/SignOutButton";
 import BackHeader from "@/src/components/navigation/BackHeader";
 import { View } from "react-native";

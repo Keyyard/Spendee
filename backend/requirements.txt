@@ -1,7 +1,1 @@
-fastapi[all]
-uvicorn
-redis
-prisma
-python-dotenv
-slowapi
-clerk-backend-api
+openai
