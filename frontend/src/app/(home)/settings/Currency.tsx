@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, TextInput, View, Button, Switch } from 'react-native';
-import { useCurrency } from "@/src/context/currencyContext";
+import { useUserContext } from "@/src/hooks/useUserContext";
+import { useCurrency } from "@/src/hooks/useCurrency";
 import BackHeader from '@/src/components/navigation/BackHeader';
-import { useUserContext } from '@/src/context/userContext';
 
 export default function CurrencySettings() {
   const { user } = useUserContext();

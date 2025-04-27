@@ -1,5 +1,5 @@
 import Welcome from "@/src/components/features/home/Welcome";
-import { useUserContext } from "@/src/context/userContext";
+import { useUserContext } from "@/src/hooks/useUserContext";
 import { Link, Stack } from "expo-router";
 import { Text, View } from "react-native";
 export default function Settings() {

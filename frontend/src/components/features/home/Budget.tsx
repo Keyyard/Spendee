@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, ActivityIndicator } from "react-native";
-import { useUser } from "@clerk/clerk-expo";
-import { getBudget } from "@/src/services/transactionService";
-import { useCurrency } from "@/src/context/currencyContext";
-import { formatBudget } from "@/src/utils/format";
+import { useCurrency } from "@/src/hooks/useCurrency";
+import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import type { User } from "@/src/types/User";
-import { useTransactionContext } from "@/src/context/transactionsContext";
+import { formatBudget } from "@/src/utils/format";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
 export default function Budget({ user }: { user: User | null | undefined }) {
   const { currency, symbol, isPrefix } = useCurrency();

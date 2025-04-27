@@ -2,7 +2,7 @@ import AllTransactions from "@/src/components/transactions/AllTransactions";
 import React from "react";
 import { View, Text } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
-import { useUserContext } from "@/src/context/userContext";
+import { useUserContext } from "@/src/hooks/useUserContext";
 
 export default function History() {
   const { user } = useUserContext();

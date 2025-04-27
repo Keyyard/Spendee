@@ -11,6 +11,7 @@ interface CurrencySettings {
 }
 
 const CurrencyContext = createContext<CurrencySettings | undefined>(undefined);
+export { CurrencyContext };
 
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const [currency, setCurrency] = useState('USD');
@@ -56,12 +57,4 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </CurrencyContext.Provider>
   );
-};
-
-export const useCurrency = () => {
-  const context = useContext(CurrencyContext);
-  if (!context) {
-    throw new Error('useCurrency must be used within a CurrencyProvider');
-  }
-  return context;
 };

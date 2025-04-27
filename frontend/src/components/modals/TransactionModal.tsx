@@ -10,8 +10,8 @@ import {
 } from "@/src/services/transactionService";
 import { getAllCategories } from "@/src/services/categoryService";
 import type { Category } from "@/src/types/Category";
-import { useUserContext } from "@/src/context/userContext";
-import { useTransactionContext } from "@/src/context/transactionsContext";
+import { useUserContext } from "@/src/hooks/useUserContext";
+import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 
 interface TransactionModalProps {
   transaction: Transaction | null;

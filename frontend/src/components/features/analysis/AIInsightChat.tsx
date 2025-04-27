@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
-import { useUserContext } from "@/src/context/userContext";
+import { useUserContext } from "@/src/hooks/useUserContext";
 import askInsightAI from "@/src/services/insightService";
 import Markdown from 'react-native-markdown-display';
 import { router } from "expo-router";

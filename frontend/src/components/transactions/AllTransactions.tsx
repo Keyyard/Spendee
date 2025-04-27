@@ -1,5 +1,5 @@
 import { renderTransaction } from "@/src/components/transactions/RenderTransaction";
-import { useTransactionContext } from "@/src/context/transactionsContext";
+import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import type { Transaction } from "@/src/types/Transaction";
 import type { User } from "@/src/types/User";
 import React, { useState } from "react";

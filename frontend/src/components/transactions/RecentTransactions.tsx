@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
-import { useTransactionContext } from "@/src/context/transactionsContext";
+import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import { renderTransaction } from "./RenderTransaction";
 
 export default function RecentTransactions() {

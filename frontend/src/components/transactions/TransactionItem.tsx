@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { useCurrency } from "@/src/context/currencyContext";
+import { useCurrency } from "@/src/hooks/useCurrency";
 import type { Transaction } from "@/src/types/Transaction";
 import TransactionModal from "../modals/TransactionModal";
 import { formatDate, formatAmount, getFormattedAmount } from "@/src/utils/format";

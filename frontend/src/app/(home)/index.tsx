@@ -5,7 +5,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { View, Text } from "react-native";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
-import { useUserContext } from "@/src/context/userContext";
+import { useUserContext } from "@/src/hooks/useUserContext";
 
 export default function Home() {
   const { user } = useUserContext();
@@ -28,7 +28,7 @@ export default function Home() {
       />
       <Welcome user={user} />
       <Budget user={user} />
-      <RecentTransactions user={user}  />
+      <RecentTransactions  />
     </View>
   );
 }

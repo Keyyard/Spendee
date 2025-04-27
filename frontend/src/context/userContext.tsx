@@ -3,6 +3,7 @@ import { useEffect, useState, createContext, useContext, useMemo } from "react";
 import type { User } from "../types/User";
 
 const UserContext = createContext<User | null>(null);
+export { UserContext };
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const { user } = useUser();
@@ -22,14 +23,3 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         </UserContext.Provider>
     );
 }
-
-export const useUserContext = () => {
-    const context = useContext(UserContext);
-    if (!context) {
-        throw new Error("useUserContext must be used within a UserProvider");
-    }
-
-    const memoizedContext = useMemo(() => context, [context]);
-
-    return memoizedContext;
-};

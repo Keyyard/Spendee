@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { View, Text, Modal } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { useTransactionContext } from "@/src/context/transactionsContext";
+import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import { formatDate } from "@/src/utils/format";
 import { groupTransactionsByDate, toDateString } from "@/src/utils/calendar";
 import DayCell from "./DayCell";

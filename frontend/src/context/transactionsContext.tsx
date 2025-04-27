@@ -2,10 +2,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { createTransaction, deleteTransaction, getAllTransactions, updateTransaction, getBudget, getLimitTransactions } from "../services/transactionService";
 import { Transaction, UpdateTransactionType } from "../types/Transaction";
 import type { User } from "../types/User";
-import { useUserContext } from "./userContext";
+import { useUserContext } from "../hooks/useUserContext";
 import { getErrorMessage, logError } from "@/src/utils/errorHandler";
 
 const TransactionsContext = createContext<TransactionsContextType | null>(null);
+export { TransactionsContext };
 
 interface TransactionsContextType {
     budget: number | 0;
@@ -89,11 +90,3 @@ export const TransactionsProvider = ({ children }: { children: React.ReactNode }
         </TransactionsContext.Provider>
     );
 }
-
-export const useTransactionContext = () => {
-    const context = useContext(TransactionsContext);
-    if (!context) {
-        throw new Error("useTransactionContext must be used within a UserProvider");
-    }
-    return context;
-};

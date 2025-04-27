@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { View, Text } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 import { MONTHS } from "@/src/constants/chart";
-import { useCurrency } from "@/src/context/currencyContext";
+import { useCurrency } from "@/src/hooks/useCurrency";
 import { getFormattedAmount } from "@/src/utils/format";
 
 interface DualLineChartProps {

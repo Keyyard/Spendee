@@ -9,8 +9,8 @@ import {
 import { getAllCategories } from "@/src/services/categoryService";
 import { X } from "lucide-react-native";
 import { Category } from "../../types/Category";
-import { useUserContext } from "@/src/context/userContext";
-import { useTransactionContext } from "@/src/context/transactionsContext";
+import { useUserContext } from "@/src/hooks/useUserContext";
+import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 export default function AddTransaction() {
   const { user } = useUserContext();
   const router = useRouter();
