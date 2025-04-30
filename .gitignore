@@ -13,3 +13,4 @@ frontend.dump/
 frontend.backup/
 
 **/*.env
+presentation/

@@ -1,5 +1,5 @@
+from openai import AsyncOpenAI
 import os
-import openai
 from fastapi import HTTPException
 from app.schemas.insight import InsightRequest
 from app.dependencies import getPrisma
@@ -43,8 +43,6 @@ async def generateSpendingInsight(insightReq: InsightRequest, db):
         f"Transactions: {txData}"
     )
     try:
-        from openai import AsyncOpenAI
-        import os
         client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         response = await client.responses.create(
             model="gpt-4o",
