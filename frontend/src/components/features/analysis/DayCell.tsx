@@ -31,8 +31,6 @@ const DayCell: React.FC<DayCellProps> = ({
       activeOpacity={0.7}
     >
       <Text className={`text-base font-semibold ${disabled ? 'text-gray-300' : 'text-gray-900'}`}>{day}</Text>
-        <Text className="text-xs text-red-500 font-bold">-{expense}</Text>
-        <Text className="text-xs text-green-500 font-bold">+{income}</Text>
     </TouchableOpacity>
   );
 };

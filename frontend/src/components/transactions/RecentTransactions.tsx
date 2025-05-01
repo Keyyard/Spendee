@@ -4,13 +4,15 @@ import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import { renderTransaction } from "./RenderTransaction";
 
 export default function RecentTransactions() {
-  const { recentTransactions } = useTransactionContext();
+  const { recentTransactions, loading } = useTransactionContext();
 
   return (
     <View>
       <Text className="text-xl font-bold my-4">Recent Transactions</Text>
-      {recentTransactions.length === 0 ? (
+      {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
+      ) : recentTransactions.length === 0 ? (
+        <Text>No transactions found.</Text>
       ) : (
         <FlatList
           data={recentTransactions}
