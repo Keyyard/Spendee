@@ -1,4 +1,4 @@
-from openai import AsyncOpenAI
+import openai
 import os
 from fastapi import HTTPException
 from app.schemas.insight import InsightRequest
@@ -43,7 +43,8 @@ async def generateSpendingInsight(insightReq: InsightRequest, db):
         f"Transactions: {txData}"
     )
     try:
-        client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        
         response = await client.responses.create(
             model="gpt-4o",
             input=prompt,
