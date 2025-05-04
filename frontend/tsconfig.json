@@ -14,5 +14,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-, "src/services/testServices.ts.bak", "src/components/features/APIDebugScreen.tsx.bak", "src/app/(home)/aiInsightChat", "src/components/__tests__/DemoText-test.js"  ]
+, "src/services/testServices.ts.bak", "src/components/features/APIDebugScreen.tsx.bak", "src/app/(home)/aiInsightChat", "src/components/__tests__/DemoText-test.js", "src/components/__tests__/atoms.test.js"  ]
 }

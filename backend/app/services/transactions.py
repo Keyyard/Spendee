@@ -38,6 +38,5 @@ class TransactionService:
 
         return budget
 
-# instance
 def get_transaction_service(db=Depends(getPrisma)):
     return TransactionService(db)

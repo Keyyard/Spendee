@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Atoms Components (renderer) renders BodyText 1`] = `
+<Text
+  className="text-base text-gray-700 "
+>
+  Body Content
+</Text>
+`;
+
+exports[`Atoms Components (renderer) renders Button 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "opacity": 1,
+    }
+  }
+>
+  <Text
+    className="text-white text-center font-bold"
+  >
+    Test Button
+  </Text>
+</View>
+`;
+
+exports[`Atoms Components (renderer) renders Card with children 1`] = `
+<View
+  className="bg-white rounded-2xl p-5 shadow-sm "
+>
+  <Text
+    className="text-base text-gray-700 "
+  >
+    Card Content
+  </Text>
+</View>
+`;
+
+exports[`Atoms Components (renderer) renders Heading at different levels 1`] = `
+[
+  <Text
+    className="text-3xl font-bold "
+  >
+    Heading 1
+  </Text>,
+  <Text
+    className="text-2xl font-bold "
+  >
+    Heading 2
+  </Text>,
+]
+`;
+
+exports[`Atoms Components (renderer) renders Input 1`] = `
+<TextInput
+  className="border border-gray-300 p-4 rounded-lg "
+  onChangeText={[Function]}
+  placeholder="Type here"
+  value=""
+/>
+`;
+
+exports[`Atoms Components (renderer) renders Section with children 1`] = `
+<View
+  className="mb-4 "
+>
+  <Text
+    className="text-base text-gray-700 "
+  >
+    Section Content
+  </Text>
+</View>
+`;
