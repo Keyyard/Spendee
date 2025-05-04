@@ -3,14 +3,29 @@
 > Spend with Spendee for a better financial future!
 > Assignment for School by Trinh Minh Hieu - Keyyard
 
-Spendee is a cross-platform personal finance manager that combines beautiful visualizations with AI-powered insights to help you make smarter financial decisions.
-[![Frontend: React Native](https://img.shields.io/badge/Frontend-React_Native-61dafb)](https://reactnative.dev/)
-[![Backend: FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688)](https://fastapi.tiangolo.com/)
-[![Database: Supabase PostgreSQL](https://img.shields.io/badge/Database-Supabase_PostgreSQL-3ecf8e)](https://supabase.com/)
-[![ORM: Prisma](https://img.shields.io/badge/ORM-Prisma-2d3748)](https://www.prisma.io/)
-[![Styling: NativeWind](https://img.shields.io/badge/Styling-NativeWind-38bdf8)](https://www.nativewind.dev/)
-[![Auth: Clerk](https://img.shields.io/badge/Auth-Clerk-6c47ff)](https://clerk.com/)
-[![VS Code Tasks](https://img.shields.io/badge/VS_Code_Tasks-CI%2FCD-007acc)](https://code.visualstudio.com/docs/editor/tasks)
+<p align="center">
+  <a href="https://reactnative.dev/">
+    <img src="https://img.shields.io/badge/Frontend-React_Native-61dafb?logo=expo" alt="Frontend: React Native Expo" />
+  </a>
+  <a href="https://fastapi.tiangolo.com/">
+    <img src="https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi" alt="Backend: FastAPI" />
+  </a>
+  <a href="https://supabase.com/">
+    <img src="https://img.shields.io/badge/Database-Supabase_PostgreSQL-3ecf8e?logo=supabase" alt="Database: Supabase PostgreSQL" />
+  </a>
+  <a href="https://www.prisma.io/">
+    <img src="https://img.shields.io/badge/ORM-Prisma-2d3748?logo=prisma" alt="ORM: Prisma" />
+  </a>
+  <a href="https://www.nativewind.dev/">
+    <img src="https://img.shields.io/badge/Styling-NativeWind-38bdf8?logo=tailwindcss" alt="Styling: NativeWind" />
+  </a>
+  <a href="https://clerk.com/">
+    <img src="https://img.shields.io/badge/Auth-Clerk-6c47ff?logo=clerk" alt="Auth: Clerk" />
+  </a>
+  <a href="https://code.visualstudio.com/docs/editor/tasks">
+    <img src="https://img.shields.io/badge/VS_Code_Tasks-CI%2FCD-007acc?logo=visualstudiocode" alt="VS Code Tasks" />
+  </a>
+</p>
 
 ---
 
