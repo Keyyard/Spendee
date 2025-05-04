@@ -170,19 +170,19 @@ pytest tests
       <td align="center"><b>AI Assistant</b></td>
     </tr>
     <tr>
-      <td><img src="https://via.placeholder.com/240x480?text=Dashboard" width="240" alt="Dashboard" /></td>
-      <td><img src="https://via.placeholder.com/240x480?text=Analytics" width="240" alt="Analytics" /></td>
-      <td><img src="https://via.placeholder.com/240x480?text=AI+Assistant" width="240" alt="AI Assistant" /></td>
+      <td><img src="medias/home.png" width="240" alt="Home" /></td>
+      <td><img src="medias/ana1.png" width="240" alt="Expense Analytics" /></td>
+      <td><img src="medias/ana2.png" width="240" alt="Expense Analytics 2" /></td>
     </tr>
     <tr>
       <td align="center"><b>Add Transaction</b></td>
       <td align="center"><b>Transaction Detail</b></td>
-      <td align="center"><b>Adding Transaction</b></td>
+      <td align="center"><b>AI Assistant</b></td>
     </tr>
     <tr>
-      <td><img src="https://via.placeholder.com/240x480?text=Transactions" width="240" alt="Transactions" /></td>
-      <td><img src="https://via.placeholder.com/240x480?text=Budget" width="240" alt="Budget" /></td>
-      <td><img src="https://via.placeholder.com/240x480?text=Categories" width="240" alt="Categories" /></td>
+      <td><img src="medias/add.png" width="240" alt="Add Transaction" /></td>
+      <td><img src="medias/edit.png" width="240" alt="Transaction Detail" /></td>
+      <td><img src="medias/ai.png" width="240" alt="AI Assistant" /></td>
     </tr>
   </table>
 </div>

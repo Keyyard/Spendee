@@ -84,7 +84,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
       animationType="slide"
       onRequestClose={onClose}
     >
-      <View className="flex-1 justify-center items-center bg-background/50">
+      <View className="flex-1 justify-center items-center bg-black/50">
         <Card className="w-full max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
           <TouchableOpacity
             onPress={onClose}
