@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, BodyText, Heading, Button } from "@/src/components/atoms";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 interface DayModalProps {
   onClose: () => void;
@@ -16,18 +16,24 @@ const DayModal: React.FC<DayModalProps> = ({
   dayIncome,
   dayExpense,
   dayTransactions,
-}) => (
-  <Card className="flex-1 bg-black/30 justify-center items-center">
-    <Card className="p-6 w-80 items-center">
-      <Heading level={3} className="mb-2">Details for {selectedDay}</Heading>
-      <BodyText className="text-green-500 font-bold mt-2">Income: {dayIncome}</BodyText>
-      <BodyText className="text-red-500 font-bold mt-1">Expense: {dayExpense}</BodyText>
+}) => (  <Card className="flex-1 bg-black/30 justify-center items-center">
+    <Card className="p-6 w-80 items-center">      <Heading level={3} className="mb-2">
+        <Text>Details for {selectedDay}</Text>
+      </Heading>
+      <BodyText className="text-green-500 font-bold mt-2">
+        <Text>Income: {dayIncome}</Text>
+      </BodyText>
+      <BodyText className="text-red-500 font-bold mt-1">
+        <Text>Expense: {dayExpense}</Text>
+      </BodyText>
       {dayTransactions.length === 0 ? (
-        <BodyText className="mt-2">No transactions.</BodyText>
+        <BodyText className="mt-2"><Text>No transactions.</Text></BodyText>
       ) : (
         dayTransactions.map((t, idx) => (
           <View key={idx} className="mt-2">
-            <BodyText>{t.description || "(No description)"} - {t.type} - {t.amount}</BodyText>
+            <BodyText>
+              <Text>{t.description || "(No description)"} - {t.type} - {t.amount}</Text>
+            </BodyText>
           </View>
         ))
       )}

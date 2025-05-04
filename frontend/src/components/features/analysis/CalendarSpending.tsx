@@ -52,7 +52,6 @@ export default function CalendarSpending({ selectedMonth, setSelectedMonth }: Ca
   const dayTransactions = selectedDay ? transactionsByDate[selectedDay]?.transactions || [] : [];
   const dayIncome = selectedDay ? transactionsByDate[selectedDay]?.income || 0 : 0;
   const dayExpense = selectedDay ? transactionsByDate[selectedDay]?.expense || 0 : 0;
-
   return (
     <View className="bg-white rounded-2xl p-5 mb-6 shadow-sm">
       <Text className="text-lg font-semibold mb-3 text-gray-900">Calendar</Text>

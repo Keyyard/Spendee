@@ -1,0 +1,83 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Frontend Dev",
+      "type": "shell",
+      "command": "npm run start",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend Dev",
+      "type": "shell",
+      "command": "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Frontend Test",
+      "type": "shell",
+      "command": "npm test",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend Test",
+      "type": "shell",
+      "command": "pytest",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "All Tests",
+      "dependsOn": ["Frontend Test", "Backend Test"],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+        "label": "Dev",
+        "dependsOn": ["Frontend Dev", "Backend Dev"],
+        "group": "build",
+        "problemMatcher": [],
+    },
+    {
+        "label": "Install Frontend Dependencies",
+        "type": "shell",
+        "command": "npm install",
+        "options": {
+            "cwd": "${workspaceFolder}/frontend"
+        },
+        "group": "build",
+        "problemMatcher": [],
+    },
+    {
+        "label": "Install Backend Dependencies",
+        "type": "shell",
+        "command": "pip install -r requirements.txt",
+        "options": {
+            "cwd": "${workspaceFolder}/backend"
+        },
+        "group": "build",
+        "problemMatcher": [],
+    },
+    {
+        "label": "Install All Dependencies",
+        "dependsOn": ["Install Frontend Dependencies", "Install Backend Dependencies"],
+        "group": "build",
+        "problemMatcher": [],
+    }
+  ]
+}

@@ -21,8 +21,6 @@ const DayCell: React.FC<DayCellProps> = ({
   income,
   onPress,
 }) => {
-  if (isFutureDate(dateString)) return <></>;
-
   return (
     <TouchableOpacity
       className={`items-center justify-center w-10 h-14 rounded-lg ${selected ? 'bg-blue-100' : ''}`}

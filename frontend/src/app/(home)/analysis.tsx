@@ -32,7 +32,6 @@ export default function Analysis() {
         <Text className="text-lg font-semibold mb-3 text-gray-900">Monthly Income vs Expense</Text>
         <DualLineChart transactions={allTransactions} />
       </Card>
-      <Card className="h-32 bg-transparent shadow-none p-0 m-0"> </Card>
     </ScrollView>
   );
 }
