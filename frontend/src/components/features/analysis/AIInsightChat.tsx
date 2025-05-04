@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import { View, ActivityIndicator, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import { Input, Button, BodyText, Heading, Card } from "@/src/components/atoms";
 import { useUserContext } from "@/src/hooks/useUserContext";
 import askInsightAI from "@/src/services/insightService";
 import Markdown from 'react-native-markdown-display';
@@ -51,14 +52,14 @@ export default function AIInsightChat() {
       <ArrowLeft size={12} color="black" />
         </TouchableOpacity>
       </View>
-        <Text className="text-lg font-bold text-gray-900">💬 AI Financial Assistant</Text>
-        <TouchableOpacity
-          className="px-3 py-1 bg-gray-100 rounded-lg active:bg-gray-200"
+        <Heading level={3} className="text-gray-900">💬 AI Financial Assistant</Heading>
+        <Button
+          title="Clear"
+          variant="success"
           onPress={() => setMessages([])}
           disabled={loading || messages.length === 0}
-        >
-          <Text className="text-xs text-gray-500 font-bold">Clear</Text>
-        </TouchableOpacity>
+          className="px-3 py-1 text-xs font-bold"
+        />
       </View>
       <View className="flex-1 min-h-[200px] max-h-[600px] bg-gray-50 px-2">
         <ScrollView
@@ -69,13 +70,13 @@ export default function AIInsightChat() {
           onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
         >
           {messages.length === 0 && !loading && (
-            <Text className="text-gray-400 text-center mt-12 text-base leading-6">
+            <BodyText className="text-gray-400 text-center mt-12 text-base leading-6">
               Ask anything about your spending, e.g.:
               {"\n"}- "How much did I spend on food last month?"
               {"\n"}- "What category did I overspend in this year?"
               {"\n"}- "Give me a summary for March."
               {"\n"}
-            </Text>
+            </BodyText>
           )}
           {messages.map((msg, idx) => (
             <View
@@ -88,7 +89,7 @@ export default function AIInsightChat() {
                 </View>
               ) : (
                 <View className="bg-blue-500 rounded-2xl px-4 py-3 max-w-[85%]">
-                  <Text className="text-white font-semibold text-base leading-6">{msg.content}</Text>
+                  <BodyText className="text-white font-semibold text-base leading-6">{msg.content}</BodyText>
                 </View>
               )}
             </View>
@@ -103,7 +104,7 @@ export default function AIInsightChat() {
         </ScrollView>
       </View>
       <View className="flex-row items-end px-4 py-3 gap-2 bg-white rounded-b-2xl border-t border-gray-100">
-        <TextInput
+        <Input
           className="flex-1 border border-gray-300 rounded-lg px-3 py-2 bg-white text-base text-gray-900 min-h-[40px] max-h-[80px]"
           value={input}
           onChangeText={setInput}
@@ -115,13 +116,12 @@ export default function AIInsightChat() {
           returnKeyType="send"
           onSubmitEditing={sendMessage}
         />
-        <TouchableOpacity
-          className={`bg-blue-500 px-5 py-2 rounded-lg active:bg-blue-600 ${loading || !input.trim() ? 'opacity-60' : ''}`}
+        <Button
+          title="Send"
           onPress={sendMessage}
           disabled={loading || !input.trim()}
-        >
-          <Text className="text-white font-bold text-base">Send</Text>
-        </TouchableOpacity>
+          className={`px-5 py-2 text-base font-bold ${loading || !input.trim() ? 'opacity-60' : ''}`}
+        />
       </View>
     </KeyboardAvoidingView>
   );

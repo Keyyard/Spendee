@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
+import { BodyText, Heading, Section } from "@/src/components/atoms";
 import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import { renderTransaction } from "./RenderTransaction";
 
@@ -7,12 +8,12 @@ export default function RecentTransactions() {
   const { recentTransactions, loading } = useTransactionContext();
 
   return (
-    <View>
-      <Text className="text-xl font-bold my-4">Recent Transactions</Text>
+    <Section>
+      <Heading level={3} className="my-4">Recent Transactions</Heading>
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : recentTransactions.length === 0 ? (
-        <Text>No transactions found.</Text>
+        <BodyText>No transactions found.</BodyText>
       ) : (
         <FlatList
           data={recentTransactions}
@@ -20,6 +21,6 @@ export default function RecentTransactions() {
           keyExtractor={(item) => item.id || ""}
         />
       )}
-    </View>
+    </Section>
   );
 }

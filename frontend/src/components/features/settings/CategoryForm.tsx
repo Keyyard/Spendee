@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, TouchableOpacity, Text } from "react-native";
+import { Section, Input, Button, BodyText } from "@/src/components/atoms";
 
 interface CategoryFormProps {
   newCategoryName: string;
@@ -13,20 +13,19 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
   handleCreateCategory,
 }) => {
   return (
-    <View className="flex-row mb-2 p-4">
-      <TextInput
+    <Section className="flex-row mb-2 p-4 items-center">
+      <Input
         value={newCategoryName}
         onChangeText={setNewCategoryName}
         placeholder="New category name"
-        className="flex-1 border border-gray-300 p-2 rounded-lg bg-white"
+        className="flex-1 mr-2"
       />
-      <TouchableOpacity
+      <Button
+        title="Add"
         onPress={handleCreateCategory}
-        className="bg-blue-500 p-2 px-4 rounded-lg ml-2"
-      >
-        <Text className="text-white">Add</Text>
-      </TouchableOpacity>
-    </View>
+        className="px-4 py-2"
+      />
+    </Section>
   );
 };
 

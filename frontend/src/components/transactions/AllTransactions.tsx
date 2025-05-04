@@ -3,7 +3,8 @@ import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import type { Transaction } from "@/src/types/Transaction";
 import type { User } from "@/src/types/User";
 import React, { useState } from "react";
-import { ActivityIndicator, FlatList, Text } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
+import { Heading, BodyText, Section } from "@/src/components/atoms";
 
 export default function AllTransactions({ user }: { user: User | null | undefined }) {
   const [loading, setLoading] = useState(false);
@@ -12,8 +13,8 @@ export default function AllTransactions({ user }: { user: User | null | undefine
   const { allTransactions, useAllTransactions } = useTransactionContext();
 
   return (
-    <>
-      <Text className="text-2xl font-bold mb-4">Transaction History</Text>
+    <Section>
+      <Heading level={2} className="mb-4">Transaction History</Heading>
       <FlatList
         data={allTransactions}
         renderItem={renderTransaction}
@@ -24,6 +25,6 @@ export default function AllTransactions({ user }: { user: User | null | undefine
           loading ? <ActivityIndicator size="large" color="#0000ff" /> : null
         }
       />
-    </>
+    </Section>
   );
 }

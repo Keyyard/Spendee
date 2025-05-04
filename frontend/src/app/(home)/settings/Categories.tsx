@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
+import { Card } from "@/src/components/atoms";
 import { useCategories } from "@/src/hooks/useCategories";
 import type { Category } from "@/src/types/Category";
 import type { User } from "@/src/types/User";
@@ -18,35 +19,34 @@ export default function CategoryManagement() {
     categories,
     loading,
     error,
-    fetchCategories,
-    createCategoryHandler,
-    updateCategoryHandler,
-    deleteCategoryHandler,
-  } = useCategories(user.id);
+    addCategory,
+    editCategory,
+    removeCategory,
+  } = useCategories();
 
   const [newCategoryName, setNewCategoryName] = useState("");
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [editingName, setEditingName] = useState("");
 
   const handleCreateCategory = async () => {
-    await createCategoryHandler(newCategoryName);
+    await addCategory(newCategoryName);
     setNewCategoryName("");
   };
 
   const handleUpdateCategory = async () => {
     if (editingCategory) {
-      await updateCategoryHandler(editingCategory.id, editingName);
+      await editCategory(editingCategory.id, editingName);
       setEditingCategory(null);
       setEditingName("");
     }
   };
 
   const handleDeleteCategory = async (categoryId: string) => {
-    await deleteCategoryHandler(categoryId);
+    await removeCategory(categoryId);
   };
 
   return (
-    <View className="bg-gray-100 rounded-lg">
+    <Card className="bg-gray-100 rounded-lg">
       <BackHeader headerTitle="Category Management"/>
       {loading && <Text>Loading...</Text>}
       {error && <Text>{error}</Text>}
@@ -64,6 +64,6 @@ export default function CategoryManagement() {
         handleUpdateCategory={handleUpdateCategory}
         handleDeleteCategory={handleDeleteCategory}
       />
-    </View>
+    </Card>
   );
 }

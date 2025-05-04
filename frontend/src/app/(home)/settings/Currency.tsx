@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TextInput, View, Button, Switch } from 'react-native';
+import { Card } from "@/src/components/atoms";
 import { useUserContext } from "@/src/hooks/useUserContext";
 import { useCurrency } from "@/src/hooks/useCurrency";
 import BackHeader from '@/src/components/navigation/BackHeader';
@@ -19,7 +20,7 @@ export default function CurrencySettings() {
   };
 
   return (
-    <View className="flex-1 bg-background p-4">
+    <Card className="flex-1 bg-background p-4">
       <BackHeader headerTitle='Currency Settings'/>
       <Text className="text-2xl font-bold mb-4">Currency Settings</Text>
       <Text className="text-gray-600 mb-2">Manage your currency settings here.</Text>
@@ -50,6 +51,6 @@ export default function CurrencySettings() {
       </View>
 
       <Button title="Save Settings" onPress={handleSave} />
-    </View>
+    </Card>
   );
 }

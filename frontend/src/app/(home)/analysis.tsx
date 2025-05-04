@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
+import { Text, ScrollView, TouchableOpacity } from "react-native";
+import { Card } from "@/src/components/atoms";
 import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import PieChartByCategory from "@/src/components/features/analysis/charts/PieChartByCategory";
 import DualLineChart from "@/src/components/features/analysis/charts/DualLineChart";
@@ -21,19 +22,19 @@ export default function Analysis() {
         <Text className="text-white font-bold text-base">💬 Open AI Financial Assistant</Text>
       </TouchableOpacity>
       <CalendarSpending selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
-      <View className="bg-white rounded-2xl p-5 mb-6 shadow-sm">
+      <Card className="mb-6">
         <Text className="text-lg font-semibold mb-3 text-gray-900">Spending by Category</Text>
         <PieChartByCategory
           transactions={allTransactions}
           selectedMonth={selectedMonth}
           setSelectedMonth={setSelectedMonth}
         />
-      </View>
-      <View className="bg-white rounded-2xl p-5 shadow-sm">
+      </Card>
+      <Card>
         <Text className="text-lg font-semibold mb-3 text-gray-900">Monthly Income vs Expense</Text>
         <DualLineChart transactions={allTransactions} />
-      </View>
-      <View className="h-32" />
+      </Card>
+      <Card className="h-32 bg-transparent shadow-none p-0 m-0"> </Card>
     </ScrollView>
   );
 }

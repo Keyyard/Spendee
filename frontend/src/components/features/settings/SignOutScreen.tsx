@@ -1,28 +1,19 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { Card, Heading, BodyText, Button } from "@/src/components/atoms";
 import { Link } from "expo-router";
 
 export default function SignOutScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-background px-6">
-      
-      <Text className="text-2xl font-bold text-gray-800 mb-4">
-        Welcome to Spendee
-      </Text>
-      <Text className="text-gray-600 mb-6">Manage your expenses with ease</Text>
+    <Card className="flex-1 items-center justify-center bg-background px-6">
+      <Heading level={2} className="mb-4 text-center">Welcome to Spendee</Heading>
+      <BodyText className="mb-6 text-center">Manage your expenses with ease</BodyText>
 
       <Link href="/(auth)/sign-in" asChild>
-        <TouchableOpacity className="w-full bg-blue-600 py-3 rounded-lg mb-2">
-          <Text className="text-white text-center font-semibold">Sign In</Text>
-        </TouchableOpacity>
+        <Button title="Sign In" className="w-full mb-2" />
       </Link>
 
       <Link href="/(auth)/sign-up" asChild>
-        <TouchableOpacity className="w-full bg-gray-300 py-3 rounded-lg">
-          <Text className="text-gray-800 text-center font-semibold">
-            Sign Up
-          </Text>
-        </TouchableOpacity>
+        <Button title="Sign Up" variant="success" className="w-full bg-gray-300 text-gray-800" />
       </Link>
-    </View>
+    </Card>
   );
 }

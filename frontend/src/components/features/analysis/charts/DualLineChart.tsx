@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
+import { Card } from "@/src/components/atoms";
 import { LineChart } from "react-native-gifted-charts";
 import { MONTHS } from "@/src/constants/chart";
 import { useCurrency } from "@/src/hooks/useCurrency";
@@ -42,7 +43,7 @@ export default function DualLineChart({ transactions }: DualLineChartProps) {
   const chartSpacing = Math.floor((screenWidth - 60) / 14); 
 
   return (
-    <View className="w-full pt-2">
+    <Card className="w-full pt-2">
       <LineChart
         data={incomeData}
         data2={expenseData}
@@ -91,6 +92,6 @@ export default function DualLineChart({ transactions }: DualLineChartProps) {
           <Text className="text-sm text-gray-700 font-medium">Expense</Text>
         </View>
       </View>
-    </View>
+    </Card>
   );
 }

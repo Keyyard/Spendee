@@ -2,7 +2,8 @@ import BackHeader from "@/src/components/navigation/BackHeader";
 import { useSignIn } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import React from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
+import { Input, Button, Heading, BodyText, Section } from "@/src/components/atoms";
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -38,36 +39,31 @@ export default function Page() {
     <View className="flex-1 items-center justify-center bg-gray-100 px-6">
         <BackHeader headerTitle="Sign In" />
       <View className="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
-        <Text className="text-3xl font-bold text-gray-800 text-center mb-4">
-          Sign in
-        </Text>
+        <Heading level={1} className="text-center mb-4">Sign in</Heading>
 
-        <TextInput
+        <Input
           autoCapitalize="none"
           value={emailAddress}
           placeholder="Enter email or username"
           onChangeText={setEmailAddress}
-          className="w-full p-4 border border-gray-300 rounded-lg mb-4 text-gray-700"
+          className="mb-4 text-gray-700"
         />
 
         {/* Password Input */}
-        <TextInput
+        <Input
           value={password}
           placeholder="Enter password"
           secureTextEntry={true}
           onChangeText={setPassword}
-          className="w-full p-4 border border-gray-300 rounded-lg mb-6 text-gray-700"
+          className="mb-6 text-gray-700"
         />
 
         {/* Sign In Button */}
-        <TouchableOpacity
+        <Button
+          title="Continue"
           onPress={onSignInPress}
-          className="w-full bg-blue-600 py-3 rounded-lg"
-        >
-          <Text className="text-white text-center font-semibold text-lg">
-            Continue
-          </Text>
-        </TouchableOpacity>
+          className="mb-2"
+        />
 
         {/* Sign Up Link */}
         <View className="flex-row justify-center mt-4">

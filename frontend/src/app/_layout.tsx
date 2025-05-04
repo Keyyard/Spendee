@@ -53,7 +53,7 @@ function AuthHandler() {
 
   return (
     <CurrencyProvider>
-      <Slot />
+        <Slot />
     </CurrencyProvider>
   );
 }

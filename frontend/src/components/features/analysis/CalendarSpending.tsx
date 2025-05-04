@@ -5,7 +5,7 @@ import { useTransactionContext } from "@/src/hooks/useTransactionContext";
 import { formatDate } from "@/src/utils/format";
 import { groupTransactionsByDate, toDateString } from "@/src/utils/calendar";
 import DayCell from "./DayCell";
-import DayModal from "./DayModal";
+import DayModal from "../../modals/DayModal";
 
 interface CalendarSpendingProps {
   selectedMonth: number;

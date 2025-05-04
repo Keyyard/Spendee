@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
+import { Card } from "@/src/components/atoms";
 import { PieChart } from "react-native-gifted-charts";
 import { CHART_COLORS, MONTHS } from "@/src/constants/chart";
 import { incrementMonth, decrementMonth, formatMonthYear } from "@/src/utils/monthYear";
@@ -42,7 +43,7 @@ export default function PieChartByCategory({ transactions, selectedMonth, setSel
   };
 
   return (
-    <View className="flex items-center justify-center w-full">
+    <Card className="flex items-center justify-center w-full">
       <View className="flex-col items-center justify-center w-[220px]">
         <View className="flex-row items-center justify-between mb-3 w-full">
           <TouchableOpacity onPress={handlePrevMonth} className="p-2 rounded-full bg-gray-100 mr-6">
@@ -82,6 +83,6 @@ export default function PieChartByCategory({ transactions, selectedMonth, setSel
           </View>
         )}
       </View>
-    </View>
+    </Card>
   );
 }

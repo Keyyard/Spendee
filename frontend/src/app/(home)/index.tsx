@@ -3,6 +3,7 @@ import Budget from "@/src/components/features/home/Budget";
 import RecentTransactions from "@/src/components/transactions/RecentTransactions";
 import { useUser } from "@clerk/clerk-expo";
 import { View, Text } from "react-native";
+import { Card } from "@/src/components/atoms";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { useUserContext } from "@/src/hooks/useUserContext";
@@ -14,7 +15,7 @@ export default function Home() {
   }
 
   return (
-    <View className="flex-1 p-4 bg-background">
+    <Card className="flex-1 p-4 bg-background">
       <Stack.Screen
         options={{
           headerTitle: "Home",
@@ -29,6 +30,6 @@ export default function Home() {
       <Welcome user={user} />
       <Budget user={user} />
       <RecentTransactions  />
-    </View>
+    </Card>
   );
 }

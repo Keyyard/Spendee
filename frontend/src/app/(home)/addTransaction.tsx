@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Modal, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useUser } from "@clerk/clerk-expo";
-import {
-  createTransaction,
-} from "@/src/services/transactionService";
-import { getAllCategories } from "@/src/services/categoryService";
 import { X } from "lucide-react-native";
-import { Category } from "../../types/Category";
 import { useUserContext } from "@/src/hooks/useUserContext";
 import { useTransactionContext } from "@/src/hooks/useTransactionContext";
+import { Card, Input, Button, BodyText, Heading } from "@/src/components/atoms";
+import { useCategories } from "@/src/hooks/useCategories";
+
 export default function AddTransaction() {
   const { user } = useUserContext();
   const router = useRouter();
@@ -18,27 +15,17 @@ export default function AddTransaction() {
 
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { categories, loading: categoriesLoading } = useCategories();
 
   const { useAddTransaction } = useTransactionContext();
   if (!user) return;
 
-    useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const result = await getAllCategories(user.id);
-        setCategories(result);
-        if (result.length > 0) {
-          setSelectedCategory(result[0].id);
-        }
-      } catch (error) {
-        console.error("Failed to fetch categories:", error);
-      }
-    };
-
-    fetchCategories();
-  }, [user]);
+  useEffect(() => {
+    if (categories.length > 0) {
+      setSelectedCategory(categories[0].id);
+    }
+  }, [categories]);
 
   const handleSubmit = async () => {
     if (!amount || !description || !selectedCategory) {
@@ -46,7 +33,7 @@ export default function AddTransaction() {
       return;
     }
 
-    const category = categories.find((cat: Category) => cat.id === selectedCategory)?.name;
+    const category = categories.find((cat) => cat.id === selectedCategory)?.name;
     if (!category) {
       alert("Invalid category selected.");
       return;
@@ -84,33 +71,34 @@ export default function AddTransaction() {
         <X size={24} color="black" />
       </TouchableOpacity>
 
-      <Text className="text-2xl font-bold text-gray-800 mb-6">
+      <Heading level={2} className="mb-6">
         Add {type === "EXPENSE" ? "Expense" : "Income"}
-      </Text>
+      </Heading>
 
-      <Text className="text-gray-600 mb-2">Amount</Text>
-      <TextInput
+      <BodyText className="mb-2">Amount</BodyText>
+      <Input
         value={amount}
         onChangeText={setAmount}
         keyboardType="numeric"
         placeholder="Enter amount"
-        className="border border-gray-300 p-4 rounded-lg mb-4"
+        className="mb-4"
       />
 
-      <Text className="text-gray-600 mb-2">Description</Text>
-      <TextInput
+      <BodyText className="mb-2">Description</BodyText>
+      <Input
         value={description}
         onChangeText={setDescription}
         placeholder="Enter description"
-        className="border border-gray-300 p-4 rounded-lg mb-4"
+        className="mb-4"
       />
 
-      <Text className="text-gray-600 mb-2">Category</Text>
+      <BodyText className="mb-2">Category</BodyText>
       <View className="border border-gray-300 rounded-lg mb-4">
         <Picker
           selectedValue={selectedCategory}
           onValueChange={(itemValue) => setSelectedCategory(itemValue)}
-          className="width-full h-[50px]"
+          className="w-full h-[50px]"
+          enabled={!categoriesLoading}
         >
           {categories.map((category) => (
             <Picker.Item
@@ -122,14 +110,10 @@ export default function AddTransaction() {
         </Picker>
       </View>
 
-      <TouchableOpacity
+      <Button
         onPress={handleSubmit}
-        className="bg-blue-600 p-4 rounded-lg"
-      >
-        <Text className="text-white text-center font-bold">
-          Add Transaction
-        </Text>
-      </TouchableOpacity>
+        title="Add Transaction"
+      />
     </View>
   );
 }

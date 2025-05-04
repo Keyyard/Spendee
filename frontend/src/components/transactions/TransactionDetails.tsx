@@ -7,8 +7,9 @@ interface TransactionDetailsProps {
 }
 
 const TransactionDetails: React.FC<TransactionDetailsProps> = ({ transaction }) => {
-  const typeBackgroundColor = transaction.type.toLowerCase() === "income" ? "bg-green-500" : "bg-red-500";
-  const formattedType = transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1);
+  const type = transaction.type ?? "";
+  const typeBackgroundColor = type.toLowerCase() === "income" ? "bg-green-500" : "bg-red-500";
+  const formattedType = type ? type.charAt(0).toUpperCase() + type.slice(1) : "Unknown";
   const formattedDate = new Date(transaction.date).toLocaleString("en-US", {
     month: "short",
     day: "numeric",

@@ -5,6 +5,7 @@ import { TransactionsProvider } from '@/src/context/transactionsContext';
 import { SignedIn, SignedOut } from '@clerk/clerk-expo';
 import { Stack } from 'expo-router';
 import { View } from 'react-native';
+import { CategoryProvider } from "@/src/context/categoryContext";
 
 export default function HomeLayout() {
   return (
@@ -13,7 +14,9 @@ export default function HomeLayout() {
       <SignedIn>
         <UserProvider>
           <TransactionsProvider>
-            <Stack screenOptions={{ headerShown: false }} />
+            <CategoryProvider>
+              <Stack screenOptions={{ headerShown: false }} />
+            </CategoryProvider>
           </TransactionsProvider>
         </UserProvider>
       </SignedIn>

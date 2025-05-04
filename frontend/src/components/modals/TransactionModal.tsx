@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Modal } from "react-native";
+import { Modal, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { X } from "lucide-react-native";
 import { Transaction } from "@/src/types/Transaction";
-import {
-  createTransaction,
-  updateTransaction,
-  deleteTransaction,
-} from "@/src/services/transactionService";
-import { getAllCategories } from "@/src/services/categoryService";
-import type { Category } from "@/src/types/Category";
 import { useUserContext } from "@/src/hooks/useUserContext";
 import { useTransactionContext } from "@/src/hooks/useTransactionContext";
+import { Card, Input, Button, BodyText, Heading } from "../atoms";
+import { useCategories } from "@/src/hooks/useCategories";
 
 interface TransactionModalProps {
   transaction: Transaction | null;
@@ -28,26 +23,19 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 }) => {
   const [description, setDescription] = useState(transaction?.description || "");
   const [amount, setAmount] = useState(transaction?.amount.toString() || "");
-  const [categories, setCategories] = useState([] as Category[]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { categories, loading: categoriesLoading } = useCategories();
   const { user } = useUserContext();
+  const { useDeleteTransaction, useEditTransaction } = useTransactionContext();
 
-  const {useDeleteTransaction, useEditTransaction} = useTransactionContext();
+  // Set default selected category when categories load or transaction changes
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const result = await getAllCategories(user.id);
-        setCategories(result);
-        if (result.length > 0) {
-          setSelectedCategory(result[0].id);
-        }
-      } catch (error) {
-        console.error("Failed to fetch categories:", error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
+    if (transaction && transaction.categoryId) {
+      setSelectedCategory(transaction.categoryId);
+    } else if (categories.length > 0) {
+      setSelectedCategory(categories[0].id);
+    }
+  }, [transaction, categories]);
 
   const handleSave = async () => {
     if (!amount || !description || !selectedCategory) {
@@ -97,42 +85,45 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
       onRequestClose={onClose}
     >
       <View className="flex-1 justify-center items-center bg-background/50">
-        <View className="w-full max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
-          <TouchableOpacity
+        <Card className="w-full max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
+          <Button
             onPress={onClose}
-            className="absolute top-4 right-4 bg-red-200 p-2 rounded-full z-10"
-          >
-            <X size={24} color="black" />
-          </TouchableOpacity>
+            title=""
+            variant="danger"
+            className="absolute top-4 right-4 p-2 rounded-full z-10 w-10 h-10 flex items-center justify-center bg-red-200"
+            accessibilityLabel="Close"
+            children={<X size={24} color="black" />}
+          />
 
-          <Text className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          <Heading level={2} className="mb-6 text-center">
             {transaction ? "Edit Transaction" : "Add Transaction"}
-          </Text>
+          </Heading>
 
-          <Text className="text-gray-600 mb-2">Amount</Text>
-          <TextInput
+          <BodyText className="mb-2">Amount</BodyText>
+          <Input
             value={amount}
             onChangeText={setAmount}
             keyboardType="numeric"
             placeholder="Enter amount"
-            className="border border-gray-300 p-4 rounded-lg mb-4"
+            className="mb-4"
           />
 
-          <Text className="text-gray-600 mb-2">Description</Text>
-          <TextInput
+          <BodyText className="mb-2">Description</BodyText>
+          <Input
             value={description}
             onChangeText={setDescription}
             placeholder="Enter description"
-            className="border border-gray-300 p-4 rounded-lg mb-4"
+            className="mb-4"
           />
 
-          <Text className="text-gray-600 mb-2">Category</Text>
+          <BodyText className="mb-2">Category</BodyText>
           <View className="border border-gray-300 rounded-lg mb-4">
             <Picker
               selectedValue={selectedCategory}
               onValueChange={(itemValue) => setSelectedCategory(itemValue)}
               className="w-full h-[50px]"
->
+              enabled={!categoriesLoading}
+            >
               {categories.map((category) => (
                 <Picker.Item
                   key={category.id}
@@ -143,24 +134,20 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             </Picker>
           </View>
 
-          <TouchableOpacity
+          <Button
             onPress={handleSave}
-            className="bg-blue-600 p-4 rounded-lg mb-4"
-          >
-            <Text className="text-white text-center font-bold">
-              {transaction ? "Save Changes" : "Add Transaction"}
-            </Text>
-          </TouchableOpacity>
+            title={transaction ? "Save Changes" : "Add Transaction"}
+            className="mb-4"
+          />
 
           {transaction && (
-            <TouchableOpacity
+            <Button
               onPress={handleDelete}
-              className="bg-red-600 p-4 rounded-lg"
-            >
-              <Text className="text-white text-center font-bold">Delete Transaction</Text>
-            </TouchableOpacity>
+              title="Delete Transaction"
+              variant="danger"
+            />
           )}
-        </View>
+        </Card>
       </View>
     </Modal>
   );
