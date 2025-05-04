@@ -1,7 +1,5 @@
 # Spendee
 
-![Spendee Banner](https://via.placeholder.com/1200x300?text=Spendee:+Smart+Financial+Tracking)
-
 > Spend with Spendee for a better financial future!
 > Assignment for School by Trinh Minh Hieu - Keyyard
 
