@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, View } from "react-native";
 import { X } from "lucide-react-native";
 import type { Category } from "@/src/types/Category";
-import { Card, Section, BodyText, Input, Button } from "@/src/components/atoms";
+import { Card, Section, BodyText, Input, Button } from "@/src/imports/Atoms";
 
 interface CategoryListProps {
   categories: Category[];

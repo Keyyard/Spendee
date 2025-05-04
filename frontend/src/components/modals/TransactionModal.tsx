@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, View } from "react-native";
+import { Modal, View, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { X } from "lucide-react-native";
 import { Transaction } from "@/src/types/Transaction";
@@ -86,14 +86,12 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
     >
       <View className="flex-1 justify-center items-center bg-background/50">
         <Card className="w-full max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
-          <Button
+          <TouchableOpacity
             onPress={onClose}
-            title=""
-            variant="danger"
-            className="absolute top-4 right-4 p-2 rounded-full z-10 w-10 h-10 flex items-center justify-center bg-red-200"
-            accessibilityLabel="Close"
-            children={<X size={24} color="black" />}
-          />
+            className="absolute top-4 right-4 bg-red-200 p-2 rounded-full z-10"
+          >
+            <X size={24} color="black" />
+          </TouchableOpacity>
 
           <Heading level={2} className="mb-6 text-center">
             {transaction ? "Edit Transaction" : "Add Transaction"}

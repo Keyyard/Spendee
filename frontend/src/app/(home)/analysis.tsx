@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Text, ScrollView, TouchableOpacity } from "react-native";
-import { Card } from "@/src/components/atoms";
-import { useTransactionContext } from "@/src/hooks/useTransactionContext";
-import PieChartByCategory from "@/src/components/features/analysis/charts/PieChartByCategory";
-import DualLineChart from "@/src/components/features/analysis/charts/DualLineChart";
-import CalendarSpending from "@/src/components/features/analysis/CalendarSpending";
-import { useRouter } from "expo-router";
+import { Card } from "@/src/imports/Atoms";
+import { useTransactionContext } from "@/src/imports/Context";
+import { PieChartByCategory, DualLineChart, CalendarSpending } from "@/src/imports/Analysis";
+import { useRouter } from "@/src/imports/Expo";
 
 export default function Analysis() {
   const { allTransactions } = useTransactionContext();

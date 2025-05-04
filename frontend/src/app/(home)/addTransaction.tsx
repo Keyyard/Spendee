@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, Modal, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "@/src/imports/Expo";
 import { X } from "lucide-react-native";
-import { useUserContext } from "@/src/hooks/useUserContext";
-import { useTransactionContext } from "@/src/hooks/useTransactionContext";
-import { Card, Input, Button, BodyText, Heading } from "@/src/components/atoms";
-import { useCategories } from "@/src/hooks/useCategories";
+import { useUserContext, useTransactionContext, useCategories } from "@/src/imports/Context";
+import { Card, Input, Button, BodyText, Heading } from "@/src/imports/Atoms";
 
 export default function AddTransaction() {
   const { user } = useUserContext();
