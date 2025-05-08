@@ -1,20 +1,18 @@
 # Spendee Backend Requirements
 # API Framework
-fastapi>=0.104.0
-uvicorn>=0.23.2
-# Authentication
-clerk-backend-api>=0.1.0
+fastapi
+uvicorn
 # Database
-prisma>=0.10.0
+prisma
 # OpenAI
-openai>=1.3.0
+openai
 # Utils
-python-dateutil>=2.8.2
+python-dateutil
 # Rate Limiting
-slowapi>=0.1.8
+slowapi
 # CORS
-python-multipart>=0.0.6
+python-multipart
 # Testing
-pytest>=7.4.0
+pytest
 # For OpenAI response format
-pydantic>=2.4.2
+pydantic
