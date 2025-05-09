@@ -7,14 +7,12 @@ WORKDIR /app
 # Copy Prisma schema and migrations
 COPY ./prisma ./prisma
 
-
 # Install Python dependencies
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run Prisma generate to create the client
 RUN prisma generate
-
 
 # Copy app code
 COPY ./app ./app

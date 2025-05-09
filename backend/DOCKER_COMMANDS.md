@@ -1,11 +1,10 @@
-docker run -d -p 8000:8000 --name spendee-backend spendee-backend
-
+docker build -t spendee-backend .
 
 # Docker Commands Reference (Windows/PowerShell)
 
 | Command                                                                 | Usage/Description                                                                                  | When to Use                                                                                   |
 |-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| `docker build -t spendee-backend .`                                     | Build a Docker image named `spendee-backend` from the Dockerfile in the current directory.        | Whenever you change the Dockerfile, requirements.txt, or any code/config that affects the image. |
+| `docker build -t spendee-backend .`                                     | Build a Docker image named `spendee-backend` from the Dockerfile in the current directory.        | Whenever you change the Dockerfile, requirements.txt, or any code/config that affects sthe image. |
 | `docker run -d -p 8000:8000 --name spendee-backend spendee-backend`     | Run the container in detached mode, mapping port 8000.                                            | To start your backend container after building the image.                                     |
 | `docker ps`                                                             | List all running containers.                                                                      | To check if your backend container is running.                                                |
 | `docker stop spendee-backend`                                           | Stop the running backend container.                                                               | When you want to stop the backend without removing it.                                        |
