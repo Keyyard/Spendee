@@ -25,6 +25,7 @@
   <a href="https://code.visualstudio.com/docs/editor/tasks">
     <img src="https://img.shields.io/badge/VS_Code_Tasks-CI%2FCD-007acc?logo=visualstudiocode" alt="VS Code Tasks" />
   </a>
+  <a href="https://deepwiki.com/Keyyard/Spendee"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
 
 ---
