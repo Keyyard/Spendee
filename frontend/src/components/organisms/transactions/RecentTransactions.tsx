@@ -2,7 +2,7 @@ import React from "react";
 import { View, FlatList, ActivityIndicator } from "react-native";
 import { BodyText, Heading, Section } from "@/src/components/atoms";
 import { useTransactionContext } from "@/src/hooks/useTransactionContext";
-import { renderTransaction } from "./RenderTransaction";
+import { renderTransaction } from "../../atoms/transactions/RenderTransaction";
 
 export default function RecentTransactions() {
   const { recentTransactions, loading } = useTransactionContext();
