@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends
 from prisma import Prisma
 from app.schemas.auth import SignInSchema
 from app.dependencies import getPrisma

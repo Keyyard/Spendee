@@ -1,7 +1,6 @@
-from datetime import datetime
 from app.dependencies import getPrisma
 from app.schemas.transactions import TransactionSchema, TransactionUpdateSchema
-from fastapi import HTTPException, Depends
+from fastapi import Depends
 import logging
 import app.repositories.transactions as Repo
 

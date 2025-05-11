@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, Request, Security
-from app.middleware.cors import addCorsMiddleware
-from app.middleware.rateLimiter import limiter, Limiter
+from fastapi import APIRouter, Request, Security
+from app.middleware.rateLimiter import limiter
 from app.middleware.auth import authRequest
 router = APIRouter()
 

@@ -1,5 +1,4 @@
 from prisma import Prisma
-from fastapi import Depends
 
 # Singleton Prisma client instance
 db = Prisma()
