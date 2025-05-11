@@ -1,5 +1,4 @@
 from app.schemas.auth import SignInSchema
-from fastapi import HTTPException
 from ..dependencies import db
 
 DEFAULT_CATEGORIES = [

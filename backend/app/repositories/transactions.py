@@ -3,7 +3,6 @@ from ..dependencies import getPrisma
 from app.schemas.transactions import TransactionSchema, TransactionUpdateSchema
 from fastapi import HTTPException, Depends
 import logging
-import json
 from prisma import Prisma
 from .base_transaction_repository import BaseTransactionRepository
 

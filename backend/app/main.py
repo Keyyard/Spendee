@@ -1,8 +1,7 @@
-from fastapi import FastAPI, Request, Security
+from fastapi import FastAPI
 from app.routes import transactions, categories, test, auth, insight
 from app.middleware.cors import addCorsMiddleware
-from app.middleware.rateLimiter import addRateLimiterMiddleware, limiter
-from app.middleware.auth import authRequest
+from app.middleware.rateLimiter import addRateLimiterMiddleware
 
 app = FastAPI()
 

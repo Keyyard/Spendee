@@ -1,10 +1,7 @@
-from fastapi import APIRouter, Depends, Security, HTTPException
+from fastapi import APIRouter, Depends, Security
 from app.schemas.transactions import TransactionSchema, TransactionUpdateSchema
 from app.services.transactions import get_transaction_service
 from app.middleware.auth import authRequest
-from app.dependencies import getPrisma
-from prisma import Prisma
-from datetime import datetime
 import logging
 
 logger = logging.getLogger("transactions")

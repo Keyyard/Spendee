@@ -1,6 +1,4 @@
-from fastapi import HTTPException
 from app.schemas.insight import InsightRequest
-from app.dependencies import getPrisma
 from app.services.extractDate import extractDate
 from app.services.prompt_builder import build_spending_insight_prompt
 from app.services.openai_client import OpenAIClient
