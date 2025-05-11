@@ -9,7 +9,7 @@ class TransactionSchema(BaseModel):
     categoryId: str 
     description: Optional[str] = None
     date: Optional[datetime] = None
-    
+
 class TransactionUpdateSchema(BaseModel):
     amount: Optional[float] = None
     categoryId: Optional[str] = None 
