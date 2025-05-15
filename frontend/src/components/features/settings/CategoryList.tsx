@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { X } from "lucide-react-native";
 import type { Category } from "@/src/types/Category";
 import { Card, Section, BodyText, Input, Button } from "@/src/imports/Atoms";
@@ -55,13 +55,11 @@ const CategoryList: React.FC<CategoryListProps> = ({
           />
         )}
 
-        <Button
+        <TouchableOpacity
           onPress={() => handleDeleteCategory(item.id)}
-          title=""
-          variant="danger"
-          className="p-2 w-10 h-10 flex items-center justify-center"
+          className="px-2 flex items-center justify-center"
           accessibilityLabel="Delete"
-          children={<X size={20} color="white" />}
+          children={<X size={20} color="red" />}
         />
       </View>
     </Card>
