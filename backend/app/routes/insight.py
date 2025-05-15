@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Security
 from app.schemas.insight import InsightRequest, InsightResponse
-from app.services.insight import generateSpendingInsight, conversationalAssistant
+from app.services.insight import generateSpendingInsight
 from app.dependencies import getPrisma
 from app.middleware.auth import authRequest
 from prisma import Prisma
