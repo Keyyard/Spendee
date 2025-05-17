@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { useRouter, usePathname } from "expo-router";
-import AddTransactionModal from "../modals/AddTransactionModal";
-import NavigationButton from "../buttons/NavigationButton";
+import AddTransactionModal from "../../modals/AddTransactionModal";
+import NavigationButton from "../../atoms/buttons/NavigationButton";
 import { Home, History, Plus, ChartLine, Settings } from "lucide-react-native";
 
 export default function NavigationBar() {

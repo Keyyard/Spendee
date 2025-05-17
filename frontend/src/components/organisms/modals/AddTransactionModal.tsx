@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { X } from "lucide-react-native";
 import { useRouter } from "expo-router";
-import TransactionTypeButton from "../buttons/TransactionTypeButton";
+import TransactionTypeButton from "../atoms/buttons/TransactionTypeButton";
 
 interface AddTransactionModalProps {
   visible: boolean;

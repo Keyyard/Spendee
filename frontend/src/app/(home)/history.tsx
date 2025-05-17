@@ -1,4 +1,4 @@
-import AllTransactions from "@/src/components/transactions/AllTransactions";
+import AllTransactions from "@/src/components/organisms/transactions/AllTransactions";
 import React from "react";
 import { View, Text } from "react-native";
 import { useUser } from "@clerk/clerk-expo";

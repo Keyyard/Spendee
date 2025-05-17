@@ -5,7 +5,7 @@ jest.mock('expo-router', () => ({
 
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import NavigationBar from '../navigation/NavigationBar';
+import NavigationBar from '../molecules/navigation/NavigationBar';
 
 describe('NavigationBar', () => {
   it('renders without crashing', () => {

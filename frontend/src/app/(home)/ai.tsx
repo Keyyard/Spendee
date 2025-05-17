@@ -1,4 +1,4 @@
-import AIInsightChat from "@/src/components/features/analysis/AIInsightChat";
+import AIInsightChat from "@/src/components/organisms/analysis/AIInsightChat";
 import { useRouter } from "expo-router";
 import React from "react";
 import { View } from "react-native";

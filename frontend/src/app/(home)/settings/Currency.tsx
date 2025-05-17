@@ -3,7 +3,7 @@ import { Text, TextInput, View, Button, Switch } from 'react-native';
 import { Card } from "@/src/components/atoms";
 import { useUserContext } from "@/src/hooks/useUserContext";
 import { useCurrency } from "@/src/hooks/useCurrency";
-import BackHeader from '@/src/components/navigation/BackHeader';
+import BackHeader from '@/src/components/molecules/navigation/BackHeader';
 
 export default function CurrencySettings() {
   const { user } = useUserContext();

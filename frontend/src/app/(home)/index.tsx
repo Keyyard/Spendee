@@ -1,6 +1,6 @@
-import Welcome from "@/src/components/features/home/Welcome";
-import Budget from "@/src/components/features/home/Budget";
-import RecentTransactions from "@/src/components/transactions/RecentTransactions";
+import Welcome from "@/src/components/organisms/home/Welcome";
+import Budget from "@/src/components/organisms/home/Budget";
+import RecentTransactions from "@/src/components/organisms/transactions/RecentTransactions";
 import { useUser } from "@clerk/clerk-expo";
 import { View, Text } from "react-native";
 import { Card } from "@/src/components/atoms";

@@ -1,5 +1,5 @@
-import NavigationBar from '@/src/components/navigation/NavigationBar';
-import SignOutScreen from '@/src/components/features/settings/SignOutScreen';     
+import NavigationBar from '@/src/components/molecules/navigation/NavigationBar';
+import SignOutScreen from '@/src/components/organisms/settings/SignOutScreen';     
 import { UserProvider } from '@/src/context/userContext';
 import { TransactionsProvider } from '@/src/context/transactionsContext';
 import { SignedIn, SignedOut } from '@clerk/clerk-expo';

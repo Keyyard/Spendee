@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowLeft } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 import { useRouter, Stack } from "expo-router";
-import BackButton from "../buttons/BackButton";
+import BackButton from "../../atoms/buttons/BackButton";
 
 interface BackHeaderProps {
   headerTitle?: string;
